@@ -6,4 +6,5 @@ A brief description.
 
 | **Issue** | **Due date** | |
 | --------- | ------------ | -- |
-| [Example issue description with link](https://github.com/hmm34/example-annotated-bibliography/issues/1) | 9/1/25 | |
+| [Creation of pre-processed data tables](https://github.com/celery-sickles/jris/issues/1) | 9/1/25 | |
+| [Visualization of the statistical baseline](https://github.com/celery-sickles/jris/issues/2) | 9/1/25 | |
