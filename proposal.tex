@@ -16,6 +16,23 @@
 
 \maketitle
 
+As the global population grows exponentially, an increasing proportion of the world has begun to live in
+urban environments, with an estimated [\%] living in cities by []. Accurate traffic flow prediction models are necessary 
+in order to optimize traffic patterns and inform sustainable, safe, and cost-effective infrastructure. Recent literature
+utilizes advanced machine learning (ML) and deep learning techniques in order to build Intelligent Transportation Systems (ITS). 
+However, the majority of studies concentrate on highly-developed cities where data is readily available, while fewer studies
+focus on the implementation of ML-powered traffic control monitoring systems in developing cities. Since developing cities are
+likely to suffer from uneven development which begets traffic congestion and traffic-related accidents, understanding traffic
+flows in developing cities is extremely necessary for effective urban development.
+
+XGBoost is found to be more computationally efficient and more accurate than deep learning methods on sparse data.
+Good at calculating tabular data.
+
+The project will utilize Open-Source Map (OSM), sattelite imagery (basic feature)
+% Data: Autoridad de Transporte Urbano (ATU)
+% Indicadores Mensuales de Tráfico
+% https://www.tomtom.com/traffic-index/city/lima
+
 In your proposal, you will provide justification on why your project matters based on work which has been done in this area, using in-line citations~\cite{clrsAlgorithms} to refer to existing works. Include what your project will accomplish and how your software will function. 
 
 When you use an image, such as in Figure~\ref{fig:method}, refer to it in the text.
@@ -33,11 +50,33 @@ When you use an image, such as in Figure~\ref{fig:method}, refer to it in the te
 \section*{Appendix}
 A concise list of features / user stories in the order in which they will be built. A few examples are below to demonstrate the expected scope and level of granularity; you will have more features than this.
 \begin{itemize}
-	\item Default picture display on web application.
-	\item On a button-click, user can separate the image into foreground and background.
-	\item User can select a picture from their desktop.
-	\item Selected picture displays on the web application.
+	\item 
+	\item Statistical baseline (historical average / ARIMA)
+	\item XGBoost based on 
+	\item Feature importance
+	\item SHAP interpretation
+	\item Cross validation with MAE or RMSE
+	\item Scenario testing
+	\item Use GIS software to make a dynamic model that can map results
 \end{itemize}
+
+Problem definition (city + data)
+
+Data gathering and cleaning
+
+Baseline models
+- graph based models (graph neural networks, graph + lstm/gru)
+- traffic grid (cnn, lstm for spatial convolutions)
+- bayesian models for handling missing data
+
+Spatiotemporal model
+
+Evaluation (MAE, RMSE, MAPE)
+Evaluation of efficiency (compare to known values / bayesian uncertainty)
+
+Interpretation and insights
+
+Policy or planning implications
 
 
 \bibliographystyle{acm}
