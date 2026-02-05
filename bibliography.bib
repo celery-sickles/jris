@@ -103,7 +103,7 @@ DOI = {10.3390/app15073866}
 
 
 
-### TRANSPORTATION
+### TRANSPORTATION STUDIES
 @article{Dorosan,
 title = {Use of machine learning in understanding transport dynamics of land use and public transportation in a developing city},
 journal = {Cities},
@@ -118,8 +118,62 @@ abstract = {Rapid urbanization has resulted in problems with pollution, traffic 
 }
 #Gradient boosting tree models
 #Phillipines study
-# Machine learning-based prediction of public vehicle speeds for a developing city.
+# XGBoost to analyze public vehicle speeds for a developing city.
+# SHAP 
 Model used vehicle GPS, open-source road network and city-provided land use data.
+
+
+@article{ABDULRASHID2025103969,
+title = {An interpretable machine learning framework for enhancing road transportation safety},
+journal = {Transportation Research Part E: Logistics and Transportation Review},
+volume = {195},
+pages = {103969},
+year = {2025},
+issn = {1366-5545},
+doi = {https://doi.org/10.1016/j.tre.2025.103969},
+url = {https://www.sciencedirect.com/science/article/pii/S1366554525000109},
+author = {Ismail Abdulrashid and Wen-Chyuan Chiang and Jiuh-Biing Sheu and Shamkhal Mammadov},
+keywords = {Safety assessment, Transport logistics, Machine learning, Explainable analytics, Crash severity, Interpretability},
+abstract = {This study presents a comprehensive decision-making framework that employs eXplainable Artificial Intelligence (XAI)-based methods to improve proactive road transport safety management, which is critical for global supply chain networks. The framework offers explainable predictions as well as suggestions pertaining to the near-future digitization of safety tools and their usage, customized for road transport safety management. We employed four black-box machine learning-based models—artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)—in this setting to enhance our comprehension of the crash-related risk factors that contribute to the severity of traffic accident injuries. Due to their opaqueness and complex inner workings, stakeholders often perceive these models as data-driven black-box approaches, making them incapable of providing an efficient decision-support tool. The recommended decision support incorporates agreement levels for predictions and interpretation across various XAI modeling paradigms. We deploy PFI (Permutation Feature Importance) and FIRM (Feature Importance Ranking Measures) tools to evaluate the extent of agreement in explainability between these various modeling approaches. The recommendations are based on PFI and FIRM values of highly performing models. We execute the framework as an illustration of the concept using a real crash dataset obtained from the NHTSA (National Highway Transportation Safety Administration of the United States) and report end-user feedback for use by transport policymakers.}
+}
+# predicting travel times according to spatiotemporal fluctuations
+#artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)
+
+@Article{en18071685,
+AUTHOR = {Champahom, Thanapong and Banyong, Chinnakrit and Janhuaton, Thananya and Se, Chamroeun and Watcharamaisakul, Fareeda and Ratanavaraha, Vatanavongs and Jomnonkwao, Sajjakaj},
+TITLE = {Deep Learning vs. Gradient Boosting: Optimizing Transport Energy Forecasts in Thailand Through LSTM and XGBoost},
+JOURNAL = {Energies},
+VOLUME = {18},
+YEAR = {2025},
+NUMBER = {7},
+ARTICLE-NUMBER = {1685},
+URL = {https://www.mdpi.com/1996-1073/18/7/1685},
+ISSN = {1996-1073},
+ABSTRACT = {Thailand’s transport sector faces critical challenges in energy management amid rapid economic growth, with transport accounting for approximately 30% of total energy consumption. This study addresses research gaps in transport energy forecasting by comparing Long Short-Term Memory (LSTM) neural networks and XGBoost models for predicting transport energy consumption in Thailand. Utilizing a comprehensive dataset spanning 1993–2022 that includes vehicle registration data by size category, vehicle kilometers traveled, and macroeconomic indicators, this research evaluates both modeling approaches through multiple performance metrics. The results demonstrate that XGBoost consistently outperforms LSTM, achieving an R-squared value of 0.9508 for test data compared to LSTM’s 0.2005. Feature importance analysis reveals that medium vehicles contribute 36.6% to energy consumption predictions, followed by truck VKT (20.5%), with economic and demographic factors accounting for a combined 15.2%. This research contributes to both methodological understanding and practical application by establishing XGBoost’s superior performance for transport energy forecasting, quantifying the differential impact of various vehicle categories on energy consumption, and demonstrating the value of integrating vehicle registration and usage data in predictive models. The findings provide evidence-based guidance for prioritizing policy interventions in Thailand’s transport sector to enhance energy efficiency and sustainability.},
+DOI = {10.3390/en18071685}
+}
+#Quantifies the energy consumption of different types of vehicles
+#XGBoost more effective than LSTM
+#Used lots of vehicle data - kilometers traveled, vehicle buying information, etc
+
+@article{HAMMOUMI2025813,
+title = {Leveraging machine learning to predict traffic jams: Case study of Casablanca, Morocco},
+journal = {Journal of Urban Management},
+volume = {14},
+number = {3},
+pages = {813-826},
+year = {2025},
+issn = {2226-5856},
+doi = {https://doi.org/10.1016/j.jum.2025.02.004},
+url = {https://www.sciencedirect.com/science/article/pii/S2226585625000172},
+author = {Laaziza Hammoumi and Saad Farah and Mohamed Benayad and Mehdi Maanan and Hassan Rhinane},
+keywords = {Traffic congestion, Jam prediction, Machine learning algorithms, Urban traffic management},
+abstract = {Traffic congestion in urban centers not only hampers mobility but also significantly impacts economic activities and environmental sustainability. This study leverages advanced machine learning techniques to analyze and predict traffic jams, utilizing a detailed dataset of 9847 recorded accident pixels from Waze, a popular navigation platform that aggregates real-time and historical traffic data from millions of users. The study is centered on Casablanca, Morocco and serves as a critical case study for urban traffic management. Advanced algorithms including Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN) were evaluated for their effectiveness in congestion prediction. The Random Forest model demonstrated exceptional performance with an accuracy of 96% and an AUC of 0.997, effectively distinguishing between congested and non-congested states. In contrast, the ANN displayed a lower performance with an accuracy of 64% and an AUC of 0.5, indicating challenges in handling complex traffic patterns. These findings underscore the potential of tailored machine learning solutions to enhance urban traffic management and planning, offering a foundation for deploying intelligent traffic systems that could significantly alleviate congestion in major urban areas.}
+}
+# Waze data
+Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN)
+# Random Forest performed the best
+
 
 @article{LOUATI2025100407,
 title = {Machine learning framework for sustainable traffic management and safety in AlKharj city},
@@ -137,22 +191,6 @@ abstract = {As urban areas expand, cities face increasing challenges related to 
 # Very comprehensive article that also includes some literature review of related studies. 
 # predicted accident hotspots (ARIMA), optimized routes (ANN), and adaptive signal traffic control
 #Uses Autoregressive Integrated Moving Average (ARIMA) and Artificial Neural Networks (ANNs)
-
-@article{ABDULRASHID2025103969,
-title = {An interpretable machine learning framework for enhancing road transportation safety},
-journal = {Transportation Research Part E: Logistics and Transportation Review},
-volume = {195},
-pages = {103969},
-year = {2025},
-issn = {1366-5545},
-doi = {https://doi.org/10.1016/j.tre.2025.103969},
-url = {https://www.sciencedirect.com/science/article/pii/S1366554525000109},
-author = {Ismail Abdulrashid and Wen-Chyuan Chiang and Jiuh-Biing Sheu and Shamkhal Mammadov},
-keywords = {Safety assessment, Transport logistics, Machine learning, Explainable analytics, Crash severity, Interpretability},
-abstract = {This study presents a comprehensive decision-making framework that employs eXplainable Artificial Intelligence (XAI)-based methods to improve proactive road transport safety management, which is critical for global supply chain networks. The framework offers explainable predictions as well as suggestions pertaining to the near-future digitization of safety tools and their usage, customized for road transport safety management. We employed four black-box machine learning-based models—artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)—in this setting to enhance our comprehension of the crash-related risk factors that contribute to the severity of traffic accident injuries. Due to their opaqueness and complex inner workings, stakeholders often perceive these models as data-driven black-box approaches, making them incapable of providing an efficient decision-support tool. The recommended decision support incorporates agreement levels for predictions and interpretation across various XAI modeling paradigms. We deploy PFI (Permutation Feature Importance) and FIRM (Feature Importance Ranking Measures) tools to evaluate the extent of agreement in explainability between these various modeling approaches. The recommendations are based on PFI and FIRM values of highly performing models. We execute the framework as an illustration of the concept using a real crash dataset obtained from the NHTSA (National Highway Transportation Safety Administration of the United States) and report end-user feedback for use by transport policymakers.}
-}
-# predicting travel times according to spatiotemporal fluctuations
-#artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)
 
 
 @Article{Fenghour2025,
@@ -176,37 +214,31 @@ url={https://doi.org/10.1007/s41207-025-00750-0}
 #creates isochromes in GIS
 
 
-@Article{en18071685,
-AUTHOR = {Champahom, Thanapong and Banyong, Chinnakrit and Janhuaton, Thananya and Se, Chamroeun and Watcharamaisakul, Fareeda and Ratanavaraha, Vatanavongs and Jomnonkwao, Sajjakaj},
-TITLE = {Deep Learning vs. Gradient Boosting: Optimizing Transport Energy Forecasts in Thailand Through LSTM and XGBoost},
-JOURNAL = {Energies},
-VOLUME = {18},
-YEAR = {2025},
-NUMBER = {7},
-ARTICLE-NUMBER = {1685},
-URL = {https://www.mdpi.com/1996-1073/18/7/1685},
-ISSN = {1996-1073},
-ABSTRACT = {Thailand’s transport sector faces critical challenges in energy management amid rapid economic growth, with transport accounting for approximately 30% of total energy consumption. This study addresses research gaps in transport energy forecasting by comparing Long Short-Term Memory (LSTM) neural networks and XGBoost models for predicting transport energy consumption in Thailand. Utilizing a comprehensive dataset spanning 1993–2022 that includes vehicle registration data by size category, vehicle kilometers traveled, and macroeconomic indicators, this research evaluates both modeling approaches through multiple performance metrics. The results demonstrate that XGBoost consistently outperforms LSTM, achieving an R-squared value of 0.9508 for test data compared to LSTM’s 0.2005. Feature importance analysis reveals that medium vehicles contribute 36.6% to energy consumption predictions, followed by truck VKT (20.5%), with economic and demographic factors accounting for a combined 15.2%. This research contributes to both methodological understanding and practical application by establishing XGBoost’s superior performance for transport energy forecasting, quantifying the differential impact of various vehicle categories on energy consumption, and demonstrating the value of integrating vehicle registration and usage data in predictive models. The findings provide evidence-based guidance for prioritizing policy interventions in Thailand’s transport sector to enhance energy efficiency and sustainability.},
-DOI = {10.3390/en18071685}
+@misc{yang2025urbanpulsecrosscitydeeplearning,
+title={UrbanPulse: A Cross-City Deep Learning Framework for Ultra-Fine-Grained Population Transfer Prediction}, 
+author={Hongrong Yang and Markus Schlaepfer},
+year={2025},
+eprint={2507.17924},
+archivePrefix={arXiv},
+primaryClass={cs.LG},
+url={https://arxiv.org/abs/2507.17924}, 
 }
-#Quantifies the energy consumption of different types of vehicles
-#XGBoost more effective than LSTM
-#Used lots of vehicle data - kilometers traveled, vehicle buying information, etc
+# analyzes gps data, is its own type of deep learning framework?
 
-https://www-sciencedirect-com.reference.sit.edu/science/article/pii/S2226585625000172
-# Waze data
- Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN)
- # Random Forest performed the best
 
-### To add:
+### Less relevant:
 #https://link.springer.com/article/10.1007/s11116-023-10406-z
 #Quantifying the uncertainty of mobility flow predictions using Gaussian processes
 #Bayesian
 
-#https://www.arxiv.org/abs/2507.17924
-#UrbanPulse: A Cross-City Deep Learning Framework for Ultra-Fine-Grained Population Transfer Prediction
-# analyzes gps data, is its own type of deep learning framework
-
 #https://arxiv.org/abs/2507.12053
 #FloGAN: Scenario-Based Urban Mobility Flow Generation via Conditional GANs and Dynamic Region Decoupling
 
+
+#City stats
+2018 Revision of World Urbanization Prospects produced by the Population Division of the UN Department of Economic and Social Affairs (UN DESA)
+
+### Data sources for Lima:
+% Data: Autoridad de Transporte Urbano (ATU)
+% Indicadores Mensuales de Tráfico
+% TomTom traffic index: https://www.tomtom.com/traffic-index/city/lima

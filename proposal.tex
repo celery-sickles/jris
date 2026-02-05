@@ -6,6 +6,7 @@
 \documentclass[12pt]{article}
 \usepackage{setspace}
 \usepackage{graphicx} % used for includegraphics
+%\usepackage{cite}
 \singlespace
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 
@@ -17,25 +18,29 @@
 \maketitle
 
 As the global population grows exponentially, an increasing proportion of the world has begun to live in
-urban environments, with an estimated [\%] living in cities by [] \cite{}. Accurate traffic flow prediction models are necessary 
-in order to optimize traffic patterns and inform sustainable, safe, and cost-effective infrastructure. Recent advances in machine learning (ML) and deep learning techniques 
-enhance Intelligent Transportation Systems (ITS) by more accurately predicting traffic flows than historical averages or linear regression techniques. 
+urban environments, with an estimated 68\% predicted to live in cities by [2050] . Accurate traffic flow prediction models are necessary 
+to optimize traffic control systems and inform sustainable, safe, and cost-effective infrastructure. Recent advances in machine learning (ML) and deep learning techniques 
+enhance Intelligent Transportation Systems (ITS) by more accurately predicting traffic flows than historical averages or linear regression techniques\cite{app15073866}. 
 However, the majority of studies concentrate on highly-developed cities where data is readily available, while fewer studies
-focus on the implementation of ML-powered traffic control monitoring systems in developing cities. Since developing cities are
+focus on the implementation of ML-powered traffic control monitoring systems in developing cities \cite{Dorosan}. Since developing cities are
 likely to suffer from uneven development which begets traffic congestion and traffic-related accidents, understanding traffic
 flows in developing cities is crucial for policymakers and urban planners.
+
 This project aims to create a dynamic traffic flow model of Lima, Perú, utilizing Extreme Gradient Boosting (XGBoost) and Random Forest (RF) machine learning techniques.
+Open-Source Map (OSM) data will be used to generate a road map of the city, while additional open-source data from the Autoridad de Transporte Urbano (ATU),
+Indicadores Mensuales de Tráfico, and TomTom will be used to model population flows according to spaciotemporal indicators.
+Feature importance analysis will be applied to determine the impact of each feature on the traffic outcome.
+The end product will be a model created using GIS software that can predict traffic flows given certain conditions, such as time, date, and
+weather. The model will additionally be able to generate predictive outcomes of road closures or the construction of new routes. 
+
+The project is informed by a variety of machine learning research initiatives which applied machine learning techniques to analyze 
+traffic in urban environments across the globe. 
 XGBoost and RF were chosen due to their relatively low computational requirement compared to deep learning neural networks,
 their high performance with limited data, and their proficiency with tabular data. A variety of studies have displayed the effectiveness of XGBoost and RF
-in modeling traffic flows in developing countries compared to ANN, LSTM, or SVM models \cite{} \cite{}. Open-Source Map (OSM) data
-will be used to generate a road map of the city, while additional open-source data from the Autoridad de Transporte Urbano (ATU),
-Indicadores Mensuales de Tráfico, and TomTom will be used to model population flows according to spaciotemporal indicators.
+in modeling traffic flows in developing countries compared to ANN, LSTM, or SVM models \cite{Dorosan}\cite{ABDULRASHID2025103969}\cite{en18071685}\cite{HAMMOUMI2025813}. 
+The mapping aspect is inspired by a study in Ali Menjeli, Algeria, which combines LSTM-analyzed data to create isochromes that are
+mapped using GIS software \cite{Fenghour2025}. Feature importance analyses are applied in. 
 
-% Data: Autoridad de Transporte Urbano (ATU)
-% Indicadores Mensuales de Tráfico
-% https://www.tomtom.com/traffic-index/city/lima
-
-In your proposal, you will provide justification on why your project matters based on work which has been done in this area, using in-line citations~\cite{clrsAlgorithms} to refer to existing works. Include what your project will accomplish and how your software will function. 
 
 When you use an image, such as in Figure~\ref{fig:method}, refer to it in the text.
 
@@ -50,18 +55,21 @@ When you use an image, such as in Figure~\ref{fig:method}, refer to it in the te
 
 \newpage
 \section*{Appendix}
-Features of the project
+Product features.
 \begin{itemize}
-	\item Visualization of the statistical baseline (found using historical average \ linear regression techniques)
-	\item Table of XGBoost results
-	\item Table of RF results
-	\item Plot to display the importance of each feature on the outcome (calculated using SHAP, PFI, and/or FIRM)
-	\item Loss plot to determine the accuracy of each model
-	\item Map results to GIS to create a color-coded visualization of congestion on each street
-	\item Implement capacity of GIS model to vary depending on time, date, and weather features.
-	\item Implement capacity of GIS model to respond to conditions such as a closed road or or an additional freeway.
+	\item Creation of pre-processed data tables (two weeks)
+	\item Visualization of the statistical baseline (found using historical average \ linear regression techniques) (one week)
+	\item Table of XGBoost results. (one week)
+	\item Table of RF results. (one week)
+	\item Plot to display the importance of each feature on the outcome (calculated using SHAP, PFI, and/or FIRM). (one week)
+	\item Loss plot to determine the accuracy of each model. (one week)
+	\item Map results to GIS to create a color-coded visualization of congestion on each street. (two weeks)
+	\item Hypothetical: Create software that will generate maps based on certain parameters. (three weeks)
+	\item Implement capacity of GIS model to vary depending on time, date, and weather features. (two weeks)
+	\item Implement capacity of GIS model to respond to conditions such as a closed road or or an additional freeway. (one week)
 \end{itemize}
 
+\nocite{*}
 
 \bibliographystyle{acm}
 \bibliography{bibliography.bib}
