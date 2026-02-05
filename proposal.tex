@@ -9,7 +9,7 @@
 \singlespace
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 
-\title{\textbf{Using Machine Learning to Analyze Traffic Flows in Lima, Peru}}
+\title{\textbf{Using Machine Learning (XGBoost) Methods to Analyze Traffic Flows in Lima, Peru}}
 \author{Ellery Park}
 
 \begin{document}
@@ -17,18 +17,20 @@
 \maketitle
 
 As the global population grows exponentially, an increasing proportion of the world has begun to live in
-urban environments, with an estimated [\%] living in cities by []. Accurate traffic flow prediction models are necessary 
-in order to optimize traffic patterns and inform sustainable, safe, and cost-effective infrastructure. Recent literature
-utilizes advanced machine learning (ML) and deep learning techniques in order to build Intelligent Transportation Systems (ITS). 
+urban environments, with an estimated [\%] living in cities by [] \cite{}. Accurate traffic flow prediction models are necessary 
+in order to optimize traffic patterns and inform sustainable, safe, and cost-effective infrastructure. Recent advances in machine learning (ML) and deep learning techniques 
+enhance Intelligent Transportation Systems (ITS) by more accurately predicting traffic flows than historical averages or linear regression techniques. 
 However, the majority of studies concentrate on highly-developed cities where data is readily available, while fewer studies
 focus on the implementation of ML-powered traffic control monitoring systems in developing cities. Since developing cities are
 likely to suffer from uneven development which begets traffic congestion and traffic-related accidents, understanding traffic
-flows in developing cities is extremely necessary for effective urban development.
+flows in developing cities is crucial for policymakers and urban planners.
+This project aims to create a dynamic traffic flow model of Lima, Perú, utilizing Extreme Gradient Boosting (XGBoost) and Random Forest (RF) machine learning techniques.
+XGBoost and RF were chosen due to their relatively low computational requirement compared to deep learning neural networks,
+their high performance with limited data, and their proficiency with tabular data. A variety of studies have displayed the effectiveness of XGBoost and RF
+in modeling traffic flows in developing countries compared to ANN, LSTM, or SVM models \cite{} \cite{}. Open-Source Map (OSM) data
+will be used to generate a road map of the city, while additional open-source data from the Autoridad de Transporte Urbano (ATU),
+Indicadores Mensuales de Tráfico, and TomTom will be used to model population flows according to spaciotemporal indicators.
 
-XGBoost is found to be more computationally efficient and more accurate than deep learning methods on sparse data.
-Good at calculating tabular data.
-
-The project will utilize Open-Source Map (OSM), sattelite imagery (basic feature)
 % Data: Autoridad de Transporte Urbano (ATU)
 % Indicadores Mensuales de Tráfico
 % https://www.tomtom.com/traffic-index/city/lima
@@ -48,35 +50,17 @@ When you use an image, such as in Figure~\ref{fig:method}, refer to it in the te
 
 \newpage
 \section*{Appendix}
-A concise list of features / user stories in the order in which they will be built. A few examples are below to demonstrate the expected scope and level of granularity; you will have more features than this.
+Features of the project
 \begin{itemize}
-	\item 
-	\item Statistical baseline (historical average / ARIMA)
-	\item XGBoost based on 
-	\item Feature importance
-	\item SHAP interpretation
-	\item Cross validation with MAE or RMSE
-	\item Scenario testing
-	\item Use GIS software to make a dynamic model that can map results
+	\item Visualization of the statistical baseline (found using historical average \ linear regression techniques)
+	\item Table of XGBoost results
+	\item Table of RF results
+	\item Plot to display the importance of each feature on the outcome (calculated using SHAP, PFI, and/or FIRM)
+	\item Loss plot to determine the accuracy of each model
+	\item Map results to GIS to create a color-coded visualization of congestion on each street
+	\item Implement capacity of GIS model to vary depending on time, date, and weather features.
+	\item Implement capacity of GIS model to respond to conditions such as a closed road or or an additional freeway.
 \end{itemize}
-
-Problem definition (city + data)
-
-Data gathering and cleaning
-
-Baseline models
-- graph based models (graph neural networks, graph + lstm/gru)
-- traffic grid (cnn, lstm for spatial convolutions)
-- bayesian models for handling missing data
-
-Spatiotemporal model
-
-Evaluation (MAE, RMSE, MAPE)
-Evaluation of efficiency (compare to known values / bayesian uncertainty)
-
-Interpretation and insights
-
-Policy or planning implications
 
 
 \bibliographystyle{acm}
