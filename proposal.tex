@@ -26,21 +26,23 @@ likely to suffer from uneven development which begets traffic congestion and tra
 flows in developing cities is crucial for policymakers and urban planners.
 
 This project aims to create a dynamic traffic flow model of Lima, Perú, utilizing Extreme Gradient Boosting (XGBoost) and Random Forest (RF) machine learning techniques.
-Open-Source Map (OSM) data will be used to generate a road map of the city, while additional open-source data from the Autoridad de Transporte Urbano (ATU),
+XGBoost and RF were chosen due to their relatively low computational requirement compared to deep learning neural networks,
+their high performance with limited data, and their proficiency with tabular data. Open-Source Map (OSM) data will be used to generate a road map of the city, 
+while additional open-source data from the Autoridad de Transporte Urbano (ATU),
 Indicadores Mensuales de Tráfico, and TomTom will be used to model population flows according to spaciotemporal indicators.
 Feature importance analysis will be applied to determine the impact of each feature on the traffic outcome.
 The end product will be a model created using GIS software that can predict traffic flows given certain conditions, such as time, date, and
 weather. The model will additionally be able to generate predictive outcomes of road closures or the construction of new routes. A potential GUI for the software 
 is displayed in Figure ~\ref{fig:gui}.
 
-
 The project is informed by a variety of machine learning research initiatives which applied machine learning techniques to analyze 
-traffic in urban environments across the globe. 
-XGBoost and RF were chosen due to their relatively low computational requirement compared to deep learning neural networks,
-their high performance with limited data, and their proficiency with tabular data. A variety of studies have displayed the effectiveness of XGBoost and RF
-in modeling traffic flows in developing countries compared to ANN, LSTM, or SVM models \cite{Dorosan}\cite{ABDULRASHID2025103969}\cite{en18071685}\cite{HAMMOUMI2025813}. 
-The mapping aspect is inspired by a study in Ali Menjeli, Algeria, which combines LSTM-analyzed data to create isochromes that are
-mapped using GIS software \cite{Fenghour2025}. Feature importance analyses are applied in. 
+traffic in urban environments across the globe. A variety of studies have displayed the effectiveness of XGBoost and RF
+in modeling traffic flows in developing countries compared to ANN, LSTM, or SVM deep learning models \cite{Dorosan}\cite{ABDULRASHID2025103969}\cite{en18071685}\cite{HAMMOUMI2025813}. 
+Feature importance analyses are applied in Abdulrashid et al., \cite{ABDULRASHID2025103969} and in 
+Dorosan et al., \cite{Dorosan}, which use a variety of Shapley's additive explanation (SHAP), PFI, and FIRM scores to compare the behvaiors
+of various models.
+The GIS mapping aspect of the project is inspired by a study in Ali Menjeli, Algeria, which combines LSTM-analyzed data to create isochromes that are
+mapped using GIS software \cite{Fenghour2025}. 
 
 
 \begin{figure}[h]
