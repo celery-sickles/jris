@@ -52,7 +52,7 @@ DOI = {10.3390/ijgi11020085}
 }
 #Overview of a variety of approaches; does not combine geo-information / data analytics / machine learning approaches
 
-@conference{Rani,
+@Conference{Rani,
 AUTHOR = {Asha Rani, N. R. and Bal, Sasmita and Inayathulla, M.},
 BOOKTITLE = {Recent Advances in Civil Engineering for Sustainable Communities: Select Proceeding of IACESD 2023},
 EDITOR = {Menon, N. Vinod Chandra and Kolathayar, Sreevalsa and Rodrigues, Hugo and Sreekeshava, K. S.},
@@ -60,7 +60,6 @@ VOLUME = {459},
 TITLE = {{GIS} Applications and Machine Learning Approaches in Civil Engineering},
 YEAR = {2024},
 PUBLISHER = {Springer Nature Singapore},
-ADDRESS = {Singapore},
 PAGES = {157-166},
 ABSTRACT = {The positions of earth observations or features, along with the properties that go with them and the spatial relationships that exist between them, are displayed using GIS (Geographic Information Systems) data. GIS statistical analysis ranges greatly and includes modeling and projections, these are typically highly computational and sophisticated, particularly whenever huge datasets must be handled. Due to its considerable quickness, precision, automation, and consistency, approaches like machine learning (ML) have been proposed as an imminent revolution in the evaluation of GIS data as computing technologies develop. The flexibility in transferring data from a particular database to a different one is possibly the most significant advantage when utilizing combined GIS and ML. The present study provides an overview of the ML models and their applications in infrastructure/urban development, health, flood prediction, groundwater detection and contamination, erosion modeling and prediction, landslide susceptibility prediction (LSP), LULCC modeling, managing forests and their resources, and biodiversity conservation using GIS tools. In addition to this, the study highlights several limitations associated with deploying different ML models in conjunction with GIS.},
 DOI = {10.1007/978-981-97-0072-1_14}
@@ -101,16 +100,18 @@ DOI = {10.3390/app15073866}
 
 ### TRANSPORTATION STUDIES
 @article{Dorosan,
+author = {Michael Dorosan and Damian Dailisan and Jesus Felix Valenzuela and Christopher Monterola},
 title = {Use of machine learning in understanding transport dynamics of land use and public transportation in a developing city},
 journal = {Cities},
 volume = {144},
-pages = {104587},
 year = {2024},
-issn = {0264-2751},
-doi = {https://doi.org/10.1016/j.cities.2023.104587},
+number = {0},
+article-number = {104587},
 url = {https://www.sciencedirect.com/science/article/pii/S0264275123003992},
-author = {Michael Dorosan and Damian Dailisan and Jesus Felix Valenzuela and Christopher Monterola},
-abstract = {Rapid urbanization has resulted in problems with pollution, traffic congestion, and public transportation in cities worldwide. Much urbanization research disproportionately focuses on cities in developed countries, where data is easier to obtain, to the detriment of cities in developing countries. To help address this gap, our work proposes a machine learning methodology that explores how land use patterns contribute to predicting an aspect of public transportation in growing cities (aggregate public vehicle speeds), with Cauayan City in the Philippines as the test case. We trained gradient-boosting tree models with road properties, day and time, and land use data as features to predict vehicle speeds on various roads in the city. Among various feature combinations used in training, the best model used road, time, and land use features over a range buffer radii of 50 to 1000 m, yielding an R2 of 0.676 (0.003) and a root mean squared error of 6.61 (0.03) kph. Apart from predicting speeds, Shapley's additive explanation (SHAP) values show that proximity to dense residential and commercial areas decreases predicted vehicle speeds. Our approach uses interpretable machine learning models to obtain insights about urban transportation in developing cities.}
+issn = {0264-2751},
+abstract = {Rapid urbanization has resulted in problems with pollution, traffic congestion, and public transportation in cities worldwide. Much urbanization research disproportionately focuses on cities in developed countries, where data is easier to obtain, to the detriment of cities in developing countries. To help address this gap, our work proposes a machine learning methodology that explores how land use patterns contribute to predicting an aspect of public transportation in growing cities (aggregate public vehicle speeds), with Cauayan City in the Philippines as the test case. We trained gradient-boosting tree models with road properties, day and time, and land use data as features to predict vehicle speeds on various roads in the city. Among various feature combinations used in training, the best model used road, time, and land use features over a range buffer radii of 50 to 1000 m, yielding an R2 of 0.676 (0.003) and a root mean squared error of 6.61 (0.03) kph. Apart from predicting speeds, Shapley's additive explanation (SHAP) values show that proximity to dense residential and commercial areas decreases predicted vehicle speeds. Our approach uses interpretable machine learning models to obtain insights about urban transportation in developing cities.},
+doi = {https://doi.org/10.1016/j.cities.2023.104587},
+SOURCE = {ScienceDirect}
 }
 #Gradient boosting tree models
 #Phillipines study
@@ -120,17 +121,18 @@ Model used vehicle GPS, open-source road network and city-provided land use data
 
 
 @article{ABDULRASHID2025103969,
+author = {Ismail Abdulrashid and Wen-Chyuan Chiang and Jiuh-Biing Sheu and Shamkhal Mammadov},
 title = {An interpretable machine learning framework for enhancing road transportation safety},
 journal = {Transportation Research Part E: Logistics and Transportation Review},
 volume = {195},
-pages = {103969},
 year = {2025},
-issn = {1366-5545},
-doi = {https://doi.org/10.1016/j.tre.2025.103969},
+number = {0},
+article-number = {103969},
 url = {https://www.sciencedirect.com/science/article/pii/S1366554525000109},
-author = {Ismail Abdulrashid and Wen-Chyuan Chiang and Jiuh-Biing Sheu and Shamkhal Mammadov},
-keywords = {Safety assessment, Transport logistics, Machine learning, Explainable analytics, Crash severity, Interpretability},
-abstract = {This study presents a comprehensive decision-making framework that employs eXplainable Artificial Intelligence (XAI)-based methods to improve proactive road transport safety management, which is critical for global supply chain networks. The framework offers explainable predictions as well as suggestions pertaining to the near-future digitization of safety tools and their usage, customized for road transport safety management. We employed four black-box machine learning-based models---artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)---in this setting to enhance our comprehension of the crash-related risk factors that contribute to the severity of traffic accident injuries. Due to their opaqueness and complex inner workings, stakeholders often perceive these models as data-driven black-box approaches, making them incapable of providing an efficient decision-support tool. The recommended decision support incorporates agreement levels for predictions and interpretation across various XAI modeling paradigms. We deploy PFI (Permutation Feature Importance) and FIRM (Feature Importance Ranking Measures) tools to evaluate the extent of agreement in explainability between these various modeling approaches. The recommendations are based on PFI and FIRM values of highly performing models. We execute the framework as an illustration of the concept using a real crash dataset obtained from the NHTSA (National Highway Transportation Safety Administration of the United States) and report end-user feedback for use by transport policymakers.}
+issn = {1366-5545},
+abstract = {This study presents a comprehensive decision-making framework that employs eXplainable Artificial Intelligence (XAI)-based methods to improve proactive road transport safety management, which is critical for global supply chain networks. The framework offers explainable predictions as well as suggestions pertaining to the near-future digitization of safety tools and their usage, customized for road transport safety management. We employed four black-box machine learning-based models---artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)---in this setting to enhance our comprehension of the crash-related risk factors that contribute to the severity of traffic accident injuries. Due to their opaqueness and complex inner workings, stakeholders often perceive these models as data-driven black-box approaches, making them incapable of providing an efficient decision-support tool. The recommended decision support incorporates agreement levels for predictions and interpretation across various XAI modeling paradigms. We deploy PFI (Permutation Feature Importance) and FIRM (Feature Importance Ranking Measures) tools to evaluate the extent of agreement in explainability between these various modeling approaches. The recommendations are based on PFI and FIRM values of highly performing models. We execute the framework as an illustration of the concept using a real crash dataset obtained from the NHTSA (National Highway Transportation Safety Administration of the United States) and report end-user feedback for use by transport policymakers.},
+doi = {https://doi.org/10.1016/j.tre.2025.103969},
+SOURCE = {ScienceDirect}
 }
 # predicting travel times according to spatiotemporal fluctuations
 #artificial neural network (ANN), support vector machine (SVM), random forest (RF), and extreme gradient boosting (XGBoost)
@@ -146,25 +148,26 @@ ARTICLE-NUMBER = {1685},
 URL = {https://www.mdpi.com/1996-1073/18/7/1685},
 ISSN = {1996-1073},
 ABSTRACT = {Thailand’s transport sector faces critical challenges in energy management amid rapid economic growth, with transport accounting for approximately 30% of total energy consumption. This study addresses research gaps in transport energy forecasting by comparing Long Short-Term Memory (LSTM) neural networks and XGBoost models for predicting transport energy consumption in Thailand. Utilizing a comprehensive dataset spanning 1993–2022 that includes vehicle registration data by size category, vehicle kilometers traveled, and macroeconomic indicators, this research evaluates both modeling approaches through multiple performance metrics. The results demonstrate that XGBoost consistently outperforms LSTM, achieving an R-squared value of 0.9508 for test data compared to LSTM’s 0.2005. Feature importance analysis reveals that medium vehicles contribute 36.6% to energy consumption predictions, followed by truck VKT (20.5%), with economic and demographic factors accounting for a combined 15.2%. This research contributes to both methodological understanding and practical application by establishing XGBoost’s superior performance for transport energy forecasting, quantifying the differential impact of various vehicle categories on energy consumption, and demonstrating the value of integrating vehicle registration and usage data in predictive models. The findings provide evidence-based guidance for prioritizing policy interventions in Thailand’s transport sector to enhance energy efficiency and sustainability.},
-DOI = {10.3390/en18071685}
+DOI = {10.3390/en18071685},
+SOURCE = {ScienceDirect}
 }
 #Quantifies the energy consumption of different types of vehicles
 #XGBoost more effective than LSTM
 #Used lots of vehicle data - kilometers traveled, vehicle buying information, etc
 
 @article{HAMMOUMI2025813,
+author = {Laaziza Hammoumi and Saad Farah and Mohamed Benayad and Mehdi Maanan and Hassan Rhinane},
 title = {Leveraging machine learning to predict traffic jams: Case study of {Casablanca, Morocco}},
 journal = {Journal of Urban Management},
 volume = {14},
 number = {3},
 pages = {813-826},
 year = {2025},
-issn = {2226-5856},
-doi = {https://doi.org/10.1016/j.jum.2025.02.004},
 url = {https://www.sciencedirect.com/science/article/pii/S2226585625000172},
-author = {Laaziza Hammoumi and Saad Farah and Mohamed Benayad and Mehdi Maanan and Hassan Rhinane},
-keywords = {Traffic congestion, Jam prediction, Machine learning algorithms, Urban traffic management},
-abstract = {Traffic congestion in urban centers not only hampers mobility but also significantly impacts economic activities and environmental sustainability. This study leverages advanced machine learning techniques to analyze and predict traffic jams, utilizing a detailed dataset of 9847 recorded accident pixels from Waze, a popular navigation platform that aggregates real-time and historical traffic data from millions of users. The study is centered on Casablanca, Morocco and serves as a critical case study for urban traffic management. Advanced algorithms including Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN) were evaluated for their effectiveness in congestion prediction. The Random Forest model demonstrated exceptional performance with an accuracy of 96% and an AUC of 0.997, effectively distinguishing between congested and non-congested states. In contrast, the ANN displayed a lower performance with an accuracy of 64% and an AUC of 0.5, indicating challenges in handling complex traffic patterns. These findings underscore the potential of tailored machine learning solutions to enhance urban traffic management and planning, offering a foundation for deploying intelligent traffic systems that could significantly alleviate congestion in major urban areas.}
+issn = {2226-5856},
+abstract = {Traffic congestion in urban centers not only hampers mobility but also significantly impacts economic activities and environmental sustainability. This study leverages advanced machine learning techniques to analyze and predict traffic jams, utilizing a detailed dataset of 9847 recorded accident pixels from Waze, a popular navigation platform that aggregates real-time and historical traffic data from millions of users. The study is centered on Casablanca, Morocco and serves as a critical case study for urban traffic management. Advanced algorithms including Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN) were evaluated for their effectiveness in congestion prediction. The Random Forest model demonstrated exceptional performance with an accuracy of 96% and an AUC of 0.997, effectively distinguishing between congested and non-congested states. In contrast, the ANN displayed a lower performance with an accuracy of 64% and an AUC of 0.5, indicating challenges in handling complex traffic patterns. These findings underscore the potential of tailored machine learning solutions to enhance urban traffic management and planning, offering a foundation for deploying intelligent traffic systems that could significantly alleviate congestion in major urban areas.},
+doi = {https://doi.org/10.1016/j.jum.2025.02.004},
+SOURCE = {ScienceDirect}
 }
 # Waze data
 Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Network (ANN)
@@ -172,17 +175,18 @@ Random Forest (RF), K-Nearest Neighbors (KNN), XGBoost, and Artificial Neural Ne
 
 
 @article{LOUATI2025100407,
+author = {Ali Louati},
 title = {Machine learning framework for sustainable traffic management and safety in {AlKharj} city},
 journal = {Sustainable Futures},
 volume = {9},
-pages = {100407},
 year = {2025},
+number = {0},
+article-number = {100407},
 issn = {2666-1888},
-doi = {https://doi.org/10.1016/j.sftr.2024.100407},
 url = {https://www.sciencedirect.com/science/article/pii/S2666188824002557},
-author = {Ali Louati},
-keywords = {AlKharj, Saudi Arabia, Sustainability, Machine learning, Arima, Artificial neural networks, Traffic, Safety},
-abstract = {As urban areas expand, cities face increasing challenges related to traffic congestion, accident rates, and environmental impact, all of which hinder sustainable growth and public safety. In AlKharj, a vibrant governorate in Riyadh, Saudi Arabia, traditional traffic management systems struggle to address these issues effectively. To tackle these challenges, we propose an Artificial Intelligence (AI) and Machine Learning (ML) framework aimed at transforming transportation infrastructure towards greater sustainability and resilience. This study highlights AI-driven advancements in traffic management, accident prevention, and energy optimization for AlKharj’s growing urban environment. We develop predictive models for accident hotspots, adaptive traffic systems, and fuel-efficient routing. Using Autoregressive Integrated Moving Average (ARIMA) and Artificial Neural Networks (ANNs), we forecast accident trends and energy consumption, providing strategic insights for urban planning. Our findings demonstrate the potential of AI to enhance efficiency, safety, and environmental sustainability in transportation, setting a benchmark for future sustainable urban mobility initiatives worldwide.}
+abstract = {As urban areas expand, cities face increasing challenges related to traffic congestion, accident rates, and environmental impact, all of which hinder sustainable growth and public safety. In AlKharj, a vibrant governorate in Riyadh, Saudi Arabia, traditional traffic management systems struggle to address these issues effectively. To tackle these challenges, we propose an Artificial Intelligence (AI) and Machine Learning (ML) framework aimed at transforming transportation infrastructure towards greater sustainability and resilience. This study highlights AI-driven advancements in traffic management, accident prevention, and energy optimization for AlKharj’s growing urban environment. We develop predictive models for accident hotspots, adaptive traffic systems, and fuel-efficient routing. Using Autoregressive Integrated Moving Average (ARIMA) and Artificial Neural Networks (ANNs), we forecast accident trends and energy consumption, providing strategic insights for urban planning. Our findings demonstrate the potential of AI to enhance efficiency, safety, and environmental sustainability in transportation, setting a benchmark for future sustainable urban mobility initiatives worldwide.},
+doi = {https://doi.org/10.1016/j.sftr.2024.100407},
+SOURCE = {ScienceDirect}
 }
 # Very comprehensive article that also includes some literature review of related studies. 
 # predicted accident hotspots (ARIMA), optimized routes (ANN), and adaptive signal traffic control
@@ -190,51 +194,38 @@ abstract = {As urban areas expand, cities face increasing challenges related to 
 
 
 @Article{Fenghour2025,
-author={Fenghour, Zohra Ayat Erahmane
-and Raham, Djamel
-and Sadouni, Salheddine},
+author={Fenghour, Zohra Ayat Erahmane and Raham, Djamel and Sadouni, Salheddine},
 title={Dynamic spatial approach using {GIS and AI} for enhanced accessibility of public transportation system: case of study {Ali Mendjeli, Algeria}},
 journal={Euro-Mediterranean Journal for Environmental Integration},
 year={2025},
-month={Oct},
-day={01},
 volume={10},
 number={5},
 pages={4265-4285},
 abstract={In recent years, cities have experienced rapid urban growth, which negatively impacts the accessibility of their inhabitants. Smart cities and intelligent transportation systems (ITS) aim to optimize urban service access by providing accurate public transportation information. Traditional spatial approaches for evaluating accessibility are primarily static and fail to incorporate temporal and spatial variations in travel conditions, which can lead to inaccurate estimates of travel times and accessibility. The authors of this article propose a new dynamic spatial approach based on Geographic Information System (GIS) techniques and artificial intelligence (AI), for predicting travel times according to spatiotemporal fluctuations. The study is applied to the new city of Ali Mendjeli in Constantine, Algeria, which faces significant challenges in terms of congestion and excessive travel times. The findings revealed a notable enhancement in the accuracy of accessibility assessments, with the dynamic model continuously adjusting predictions based on current traffic conditions and temporal patterns, encompassing weekdays and weekends. Notably, during rush hour, the predictions of the dynamic model exhibited a close alignment with the actual travel times. In contrast to a static approach, this provides a more comprehensive and reliable representation of urban travel patterns. The broader implications of this study extend to other cities experiencing rapid urbanization, traffic congestion, or exhibiting complex travel patterns. The study contributes to the optimization of public transportation planning through a data-driven, responsive framework. Furthermore, the proposed approach promotes the usage of public transportation, thus reducing the environmental impact of mobility. This dual focus on efficiency and sustainability corresponds with broader objectives of implementing smart city initiatives.},
 issn={2365-7448},
 doi={10.1007/s41207-025-00750-0},
-url={https://doi.org/10.1007/s41207-025-00750-0}
+url={https://doi.org/10.1007/s41207-025-00750-0},
+source = {Springer Nature}
 }
 #LSTM for spatiotemporal - link with GIS data
 #creates isochromes in GIS
 
 
-@misc{yang2025urbanpulsecrosscitydeeplearning,
-title={{UrbanPulse}: A Cross-City Deep Learning Framework for Ultra-Fine-Grained Population Transfer Prediction}, 
-author={Hongrong Yang and Markus Schlaepfer},
-year={2025},
-eprint={2507.17924},
-archivePrefix={arXiv},
-primaryClass={cs.LG},
-url={https://arxiv.org/abs/2507.17924}, 
-}
-# analyzes gps data, is its own type of deep learning framework?
-
-
 2/19
-@INPROCEEDINGS{11253819,
+@Conference{11253819,
   author={Turnip, Peri and Joelianto, Endra and Mukhlish, Faqihza and Nadhira, Vebi and Turnip, Arjon and Burohman, Azka Muji},
-  booktitle={2025 9th International Conference on Instrumentation, Control, and Automation (ICA)}, 
+  booktitle={2025 9th International Conference on Instrumentation, Control, and Automation {(ICA)}}, 
+  volume= {},
   title={Comparative Analysis of Machine Learning Algorithms for Traffic Prediction in Intelligent Transportation Systems}, 
   year={2025},
-  volume={},
-  number={},
+  publisher = {IEEE},
   pages={196-200},
-  keywords={Accuracy;Computational modeling;Nearest neighbor methods;Predictive models;Real-time systems;Data models;Bayes methods;Decision trees;Random forests;Intelligent transportation systems;Traffic Prediction;Nearest Neighbours (KNN);Naive Bayes;Decision Tree;and Random Forest},
-  doi={10.1109/ICA65945.2025.11253819}
+  abstract = {Traffic prediction is a critical element of Intelligent Transportation Systems (ITS), enhancing road safety, traffic flow, and environmental sustainability. By leveraging big data and machine learning, ITS optimizes fuel consumption, route planning, and traffic signal control. This study evaluates the performance of four machine learning models—K-Nearest Neighbors (KNN), Naïve Bayes, Decision Tree, and Random Forest—for classifying traffic conditions based on 11 months of vehicle count data collected every 15 minutes. The traffic levels are categorized into four classes: Heavy Traffic, Medium Traffic, No Traffic, and Traffic Jam. Among the models, Random Forest achieved the highest overall accuracy (99%) and delivered strong precision and recall across all traffic levels, especially in distinguishing between complex traffic patterns. KNN also showed high accuracy but required more computational resources. Decision Tree performed comparably, particularly for Heavy Traffic, while Naïve Bayes struggled with lower precision and recall due to its limitations in handling complex data distributions. The results underscore the robustness of Random Forest for real-time traffic condition classification and support its integration into ITS for effective, data-driven traffic and congestion management in urban environments.},
+  doi={10.1109/ICA65945.2025.11253819},
+  source = {IEEE}
 }
 %Random Forest performed the best
+
 
 @INPROCEEDINGS{11137940,
   author={Ling, Tao and Mababa, Jonilo C.},
@@ -244,8 +235,10 @@ url={https://arxiv.org/abs/2507.17924},
   volume={},
   number={},
   pages={159-163},
+  publisher = {IEEE},
   keywords={Adaptation models;Attention mechanisms;Computational modeling;Autoencoders;Forestry;Predictive models;Feature extraction;Road traffic;Data models;Accidents;Traffic accident severity prediction;LSTM autoencoder;Hybrid attention;Random Forest;Imbalanced data},
-  doi={10.1109/ISCTT66403.2025.11137940}
+  doi={10.1109/ISCTT66403.2025.11137940},
+  SOURCE = {IEEE}
 }
 
 @INPROCEEDINGS{9798574,
@@ -256,8 +249,10 @@ url={https://arxiv.org/abs/2507.17924},
   volume={},
   number={},
   pages={1078-1082},
+  publisher = {IEEE},
   keywords={Training;Roads;Transportation;Predictive models;Traffic control;Road safety;Safety;road traffic safety;factors affecting the accident;random forest;accidents at national and provincial road intersections},
-  doi={10.1109/ICTIS54573.2021.9798574}
+  doi={10.1109/ICTIS54573.2021.9798574},
+  source = {IEEE}
 }
 
 @Article{infrastructures10050122,
@@ -271,7 +266,8 @@ ARTICLE-NUMBER = {122},
 URL = {https://www.mdpi.com/2412-3811/10/5/122},
 ISSN = {2412-3811},
 ABSTRACT = {Traffic counts are essential for assessing road capacity to provide efficient, effective, and safe mobility. However, current methods for generating models for traffic count studies are often limited in their accuracy and applicability, which can lead to incorrect or imprecise estimates of traffic volume. This study focused on analyzing and predicting traffic conditions on Ikorodu Road in Lagos State. The analysis involved an examination of historical traffic data, specifically focusing on daily and hourly traffic volumes. The prediction involved the use of machine learning models, including decision trees, gradient boosting, and random forest classifiers. The results of this study revealed significant variations in traffic volume across different days of the week and times of the day, indicating peak and off-peak periods. The study also highlighted the need for a more comprehensive approach that includes additional factors, such as weather conditions, road work, and special events, which could significantly impact traffic volume.},
-DOI = {10.3390/infrastructures10050122}
+DOI = {10.3390/infrastructures10050122},
+Source = {MDPI}
 }
 %"We refined the model’s hyperparameters using Bayesian optimization techniques based on models, including the random sampling of variables at each step of a decision tree, the minimum size of an internal node, and the number of decision trees. The performance of the model was evaluated using cross-validation, and the optimal values of the hyperparameters were selected based on their best performance."
 %decent amount of detail about the methods they used to train the models
@@ -289,15 +285,6 @@ a lot of important information (socio-demographic characteristics and mode choic
 #Methodology: 
 - Transit viability on road segments
 - OpenStreetMap GTFS data to see bus stop locations
-
-
-### Less relevant:
-#https://link.springer.com/article/10.1007/s11116-023-10406-z
-#Quantifying the uncertainty of mobility flow predictions using Gaussian processes
-#Bayesian
-
-#https://arxiv.org/abs/2507.12053
-#FloGAN: Scenario-Based Urban Mobility Flow Generation via Conditional GANs and Dynamic Region Decoupling
 
 
 #City stats

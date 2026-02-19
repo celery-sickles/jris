@@ -1,0 +1,19 @@
+
+@misc{yang2025urbanpulsecrosscitydeeplearning,
+author={Hongrong Yang and Markus Schlaepfer},
+title={{UrbanPulse}: A Cross-City Deep Learning Framework for Ultra-Fine-Grained Population Transfer Prediction}, 
+year={2025},
+eprint={2507.17924},
+archivePrefix={arXiv},
+primaryClass={cs.LG},
+url={https://arxiv.org/abs/2507.17924}, 
+}
+# analyzes gps data, is its own type of deep learning framework?
+
+### Less relevant:
+#https://link.springer.com/article/10.1007/s11116-023-10406-z
+#Quantifying the uncertainty of mobility flow predictions using Gaussian processes
+#Bayesian
+
+#https://arxiv.org/abs/2507.12053
+#FloGAN: Scenario-Based Urban Mobility Flow Generation via Conditional GANs and Dynamic Region Decoupling
