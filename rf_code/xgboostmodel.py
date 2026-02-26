@@ -17,7 +17,7 @@ df["Day"] = df["Time"].dt.day
 df["Hour"] = df["Time"].dt.hour
 df["Minute"] = df["Time"].dt.minute
 df = df.drop(columns=["Time"])
-#print(df)
+print(df)
 
 #Encode "Location" to a categorical value
 le = LabelEncoder()
@@ -35,7 +35,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # == Using XGBoost to predict accidents ==
 
-#Set parameters for XGBoost model
+#Set base parameters for XGBoost model
 model = XGBRegressor(
     n_estimators=200,
     learning_rate=0.05,
@@ -76,5 +76,5 @@ def predict_accidents(location, time_str, num_vehicles):
 
 
 #Sample prediction
-print("Predicted accidents:",
+print("Predicted accidents for Intersection A at 17:30 on 2023-06-01 with 100 vehicles: ",
       predict_accidents("Intersection A", "2023-06-01 17:30", 100))

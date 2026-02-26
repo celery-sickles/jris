@@ -5,7 +5,7 @@ data preprocessing: feature selection
 - SFS, SBS
 - data preprocessing: feature scaling - NOT REQUIRED
 (statistical baseline) - 
-apply random forest model - do for demo next week
+apply xgboost model - do for demo next week
 optimization of hyperparameters - bayesian optimization, optimizes for global min
 optional: feature importance - SHAP (local), global: permutation feature importance (PFI) and feature importance ranking measure (FIRM)
 
@@ -23,3 +23,20 @@ https://www.traffictechnologytoday.com/news/traffic-management/korean-usa-resear
 
 https://www.arcgis.com/apps/dashboards/86ca445a538743d5a7f20c3ef4b8eb25
 https://www.city-data.com/accidents/acc-Wooster-Ohio.html
+https://statepatrol.ohio.gov/dashboards-statistics/ostats-dashboards/crash-dashboard
+
+
+XGBoost in depth: 
+Gradient Boosting: 
+Starts with the first function. Then takes the residuals (actual value - predicted). splits the dataset and takes the mean of those. 
+The end result will be the sum of the results from all the previous decision trees
+![alt text](image.png)
+
+To find where to split the leaves: 
+similarity score = (sum of residuals)^2 / (# residuals + lambda)
+lambda = regularization parameter to prevent overfitting
+
+Sleft, Sright, Gain = Sleft + Sright - Sroot
+
+
+Mean squared error (MSE) - loss function
