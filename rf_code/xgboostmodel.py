@@ -32,4 +32,49 @@ X_train, X_test, y_train, y_test = train_test_split(
     x, y, test_size=0.2, random_state=42
 )
 
-#Next: build XGBoost model, build function to predict accidents based on specified input data
+
+# == Using XGBoost to predict accidents ==
+
+#Set parameters for XGBoost model
+model = XGBRegressor(
+    n_estimators=200,
+    learning_rate=0.05,
+    max_depth=5,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+model.fit(X_train, y_train)
+
+
+print(model.predict(X_test))
+
+
+#Create function to run XGBoost for given parameters
+def predict_accidents(location, time_str, num_vehicles):
+    time_obj = pd.to_datetime(time_str, format='%Y-%m-%d %H:%M')
+    year = time_obj.year
+    month = time_obj.month
+    day = time_obj.day
+    hour = time_obj.hour
+    minute = time_obj.minute
+   
+    location_encoded = le.transform([location])[0]
+   
+    input_data = np.array([[
+        location_encoded,
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        num_vehicles
+    ]])
+    prediction = model.predict(input_data)
+   
+    return round(prediction[0], 2)
+
+
+#Sample prediction
+print("Predicted accidents:",
+      predict_accidents("Intersection A", "2023-06-01 17:30", 100))
