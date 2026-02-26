@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 df = pd.read_csv('C:/Users/alyss/Downloads/traffic_data.csv')
-#print(df)
+print(df)
 
 x = df.drop('Location', axis=1)
 y = df['Accidents']
