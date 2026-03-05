@@ -17,8 +17,6 @@
 \maketitle
 
 \section{Introduction}
-The introduction will broadly introduce your topic, motivate it, and describe what will be done.
-
 Traffic management remains a crucial issue in large cities, especially rapidly developing cities without extensive urban planning.
 Poor traffic management results in congestion, unnecessary emissions, and accidents that impact the safety of the city's residents.
 In order to manage the flow of traffic within a city, many cities turn to data-driven approaches that inform urban planning.
@@ -34,7 +32,7 @@ employees, politicians, and everyday people rely on accurate traffic models to m
 or traffic policy.
 
 Traffic accident analysis is an important subsection of traffic management. Motor vehicle crashes are the top cause of death
-in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022. ~\cite{cdc}
+in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022.~\cite{cdc}
 Traffic accident modeling utilizes traffic accident data to determine when and where traffic accidents will occur. This data can 
 be used by city planners to create policy geared towards decreasing traffic accidents. For example, [throw in an example of how policymakers use traffic
 data to make decisions about traffic, like using smartphone or something.]
@@ -57,35 +55,43 @@ information to traffic officials on strategic decisions that can be made to enha
 
 
 \section{Background}
-A long history of data-driven traffic models that have been used to make planning decisions.
-Other approaches involve plotting a simple database of
-accident data onto a map to give the data an easily visualized, geospatial component. This approach manages historical accident data
-but does not model or predict future accidents.
-The field has relied on statistical regression analysis as a predictive model in the past, 
-such as historical averages or ARIMA. Historical averages take the average of all data over a certain time period and use that
-value as a prediction of what will happen in the future. ARIMA, or Autoregressive Integrated Moving Average, provides a more complex
-analysis by integrating three components: "Autoregressive," which computes the current volume of traffic based on previous traffic counts
-(ex. if traffic is high at 10 am, it will likely still be high at 10:10 am),
-"Integrated," which handles broad trends over long periods of time, and "Moving Average," which allows the model to correct itself
-based on its past errors. These methods are computationally simple, but their simplicity
-limits their ability to handle non-linear relationships or the incorporation of additional variables, such as weather. 
-ARIMA, specifically, handles short-term time-based predictions well, but struggles with real-time traffic modeling, managing
-the impact of traffic flows from multiple locations, or handling data with a large variety of variables. 
-The accuracy of statistical analysis techniques often cannot measure to the accuracy of
-machine learning models and neural networks, which have recently dominanted the traffic modeling field.
-
 Recent approaches using machine learning and neural networks produce models 
-of traffic flows, jams, and accidents have shown a marked increase in accuracy of traffic modeling.
-A large body of literature showcase the various ways machine learning has been used to model traffic flows.
-One study in Thailand models traffic flows and car sales to track emissions across the city, while another study models traffic
-to create a signal traffic control system in Ali Mendjeli, Algeria. Others model traffic jams and others focus on accident prediction, but
-most traffic studies share similar methods, machine learning techniques, and limitations in the creation of their traffic models. 
+of traffic flows, jams, and accidents have shown a marked increase in accuracy of traffic modeling compared to traditional statistical methods.
+
+The decision tree machine learning models of XGBoost and Random Forest are frequently used to model traffic in the literature.
+Decision trees are simple machine learning algorithms that split into smaller, more specific branches, and
+come to a decision by tracing a path down the tree. In order to figure out which path to go down, the decision tree can be thought of as 
+answering a series of questions.
+As an example, a decision tree may have been created to decide whether or not a student should study. The first branch may ask, "What time is it?" The
+tree may branch into two separate paths: one for if the time is between 11 pm and 6 am, and one for if it is 6am-11pm. Then, it may ask another question, 
+"Do you have an exam tomorrow?" Here, the tree will split off into four paths: One for if it is nighttime and there is an exam,
+one for if it is nighttime and there is not an exam, one for if it is daytime and there is an exam, and one for if it is daytime and
+there is not an exam tomorrow. The decision tree may say that you should study if it is daytime and you have an exam, but not under any other condition.
+
+In order for the decision tree to decide where to branch (say, maybe the first question should split at 5 am and 12 pm rather than 6 am and 11 pm),
+the trees are trained on a large body of data. 
+The difference between XGBoost and Random Forest lies in the way that each new tree decision tree is created. Random Forest follows the 
+"bagging" technique, which means that each tree is trained individually on a different subset of the data. XGBoost, in contrast, follows the 
+"boosting" technique, wherein trees are trained sequentially, with the newest tree correcting the
+errors of the previous tree. In both training techniques, each tree will come to a slightly different conclusion. 
+The model produces a single, final result by summing the result that each tree in the model comes to.
+
+In order to optimize decision tree models, the researcher must determine specific parameters, such as how many times the decision tree should be 
+allowed to branch or how many decision trees the model should have. Too many trees results in the risk of overfitting the model, whereas
+too few trees will not fit the model closely enough to the data and leave a wide margin of error. 
+Bayesian optimization techniques are used to determine the parameters that the model should use for optimal accuracy.
+
+Decision trees can solve classification problems--problems
+that give yes/no answers--and regression problems--problems that output a number showing the probability that something will happen.
 
 Machine learning methods perform well for classification problems, that is, creating a model that will say whether an accident
-will occur or not. A plurality of studies have observed the superior performance of decision tree networks such as random forest and XGBoost over neural 
-networks such as LSTM or CNNs. Tabular data and often not real-time data.
+will occur or not. 
 
-Neural networks perform well in 
+
+Decision tree models suffer from a lack of interpretability--the model simply reads out a number without speaking on the
+factors that went into that decision. An XGBoost model may say that there will not be an accident on Beall Avenue tomorrow,
+but it will not be able to say that it made that decision because the weather will be clear, or because accidents occur less often
+on Wednesdays, or because it is springtime. In order to create interpretable results, many studies use SHAP, FIRM, 
 
 
 Studies share limitations and concerns. In any smart city project, privacy becomes an issue as personal travel data is being used to
@@ -101,6 +107,37 @@ and research projects often require collaboration with local governments in orde
 
 
 \section{Related Works}
+A long history of data-driven traffic models that have been used to make planning decisions. 
+Analysis-absent approaches involve plotting a simple database of
+accident data onto a map to give the data an easily visualized, geospatial component. Other visualization models utilize BI graphics and tables to display
+accident causes or traffic metrics. These approaches cleanly visual historical accident data
+but do not model or predict future accidents.
+
+The traffic management field has relied on statistical regression analysis as a predictive model in the past, 
+such as historical averages or ARIMA. Historical averages take the average of all data over a certain time period and use that
+value as a prediction of what will happen in the future. ARIMA, or Autoregressive Integrated Moving Average, provides a more complex
+analysis by integrating three components: "Autoregressive," which computes the current volume of traffic based on previous traffic counts
+(ex. if traffic is high at 10 am, it will likely still be high at 10:10 am),
+"Integrated," which handles broad trends over long periods of time, and "Moving Average," which allows the model to correct itself
+based on its past errors. These methods are computationally simple, but their simplicity
+limits their ability to handle non-linear relationships or the incorporation of additional variables, such as weather. 
+ARIMA, specifically, handles short-term time-based predictions well, but struggles with real-time traffic modeling, managing
+the impact of traffic flows from multiple locations, or handling data with a large variety of variables. 
+
+
+A large body of literature showcase the various ways machine learning has been used to model traffic flows.
+One study in Thailand models traffic flows and car sales to track emissions across the city, while another study models traffic
+to create a signal traffic control system in Ali Mendjeli, Algeria. Others model traffic jams and others focus on accident prediction, but
+most traffic studies share similar methods, machine learning techniques, and limitations in the creation of their traffic models. 
+
+Decision tree machine learning models often do not make real-time prediction models, but
+perform especially well on tabular data that is often available for modeling problems. Random Forest and XGBoost have similar accuracy,
+with some comparison studies finding an edge when using XGBoost and some finding Random Forest to be the most efficient.
+A plurality of studies have observed the superior performance of decision tree models over neural 
+networks such as LSTM or CNNs for modeling tabular traffic data. 
+
+Neural networks perform well in 
+
 
 \section{Methodology}
 Dijkstra's algorithm was chosen for single-source shortest path computation on graphs with non-negative edge weights, following the implementation presented in CLRS~\cite{clrsAlgorithms}.
