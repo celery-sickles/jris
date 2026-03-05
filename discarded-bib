@@ -17,3 +17,18 @@ url={https://arxiv.org/abs/2507.17924},
 
 #https://arxiv.org/abs/2507.12053
 #FloGAN: Scenario-Based Urban Mobility Flow Generation via Conditional GANs and Dynamic Region Decoupling
+
+@Article{Choi,
+AUTHOR = {Choi, Yosoon},
+TITLE = {{GeoAI}: Integration of Artificial Intelligence, Machine Learning, and Deep Learning with {GIS}},
+JOURNAL = {Applied Sciences},
+VOLUME = {13},
+YEAR = {2023},
+NUMBER = {6},
+ARTICLE-NUMBER = {3895},
+URL = {https://www.mdpi.com/2076-3417/13/6/3895},
+ISSN = {2076-3417},
+ABSTRACT = {Geographic Information Systems (GIS) have become increasingly important in various fields such as urban planning, environmental management, transportation, and agriculture [...]},
+DOI = {10.3390/app13063895}
+}
+# About six paragraphs long; introduction to a book segment I think?

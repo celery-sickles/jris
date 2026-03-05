@@ -9,8 +9,8 @@
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 \usepackage{graphicx}
 
-\title{\textbf{Project Topic}}
-\author{Your Name}
+\title{\textbf{Modeling Traffic Accidents in Wooster, Ohio using XGBoost Machine Learning Analysis}}
+\author{Ellery Park}
 
 \begin{document}
 
@@ -18,7 +18,7 @@
 
 \section{Introduction}
 Traffic management remains a crucial issue in large cities, especially rapidly developing cities without extensive urban planning.
-Poor traffic management results in congestion, unnecessary emissions, and accidents that impact the safety of the city's residents.
+Poor traffic management results in congestion, unnecessary emissions, and accidents that impact the safety of the city's residents~\cite{delaTorre}.
 In order to manage the flow of traffic within a city, many cities turn to data-driven approaches that inform urban planning.
 
 "Smart cities" refer to cities that utilize data and computational techniques to improve the functioning of a city. 
@@ -31,20 +31,11 @@ such as software like Google Maps that re-routes traffic to less congested areas
 employees, politicians, and everyday people rely on accurate traffic models to make informed decisions about new transit routes
 or traffic policy.
 
-Traffic accident analysis is an important subsection of traffic management. Motor vehicle crashes are the leading cause of death
-in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022.~\cite{cdc}
+Traffic accident analysis is an important subsection of traffic management. Motor vehicle crashes are the second leading cause of death
+in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022.~\cite{odphp}
 Traffic accident modeling utilizes traffic accident data to determine when and where traffic accidents will occur. This data can 
-be used by city planners to create policy geared towards decreasing traffic accidents. For example, [throw in an example of how policymakers use traffic
-data to make decisions about traffic, like using smartphone or something.]
+be used by city planners to create policy geared towards decreasing traffic accidents~\cite{Givoni}.
 Intelligent traffic systems additionally use traffic models to reroute traffic away from accident-prone areas. 
-
-The majority of traffic accident prediction studies focus on determining merely whether or not an accident will happen, but
-leave out additional analysis crucial to urban planners or policymakers that help these people to make informed traffic planning
-decisions. Traffic accident models which solely predict accidents do not explain how or what factors led into the algorithm
-deciding the result, which is both uninformative and seen as unreliable by policymakers who don't understand how the result came to be. 
-Thus, many traffic studies rely on explanatory models to analyze the underlying factors that contribute to an accident or the
-severity of the accident. Additionally, the majority of traffic accident models focus on large cities where data is more
-readily available, rather than small cities where different factors may contribute to accident occurance and severity.
 
 This study aims to provide better insight into traffic accidents in small American towns, including factors that can influence 
 the likelihood and severity of a traffic accident. Using XGBoost analysis, 
@@ -104,15 +95,18 @@ networks such as LSTM or CNNs in the creation of accurate traffic models. Random
 with some comparison studies finding an edge when using XGBoost~\cite{Dorosan}~\cite{ABDULRASHID2025103969} 
 and some finding Random Forest to be the most efficient~\cite{HAMMOUMI2025813}~\cite{11253819}. 
 Decision tree models often do not create real-time traffic maps, but perform especially well on tabular data that is often available for modeling problems. 
-K-Nearest Neighbors (KNN) is another frequently used machine learning model used to analyze traffic with similar accuracy but more computation complexity.
+K-Nearest Neighbors (KNN) and Support Vector Machine are other frequently used machine learning models used to analyze traffic with similar accuracy but more computation complexity.
 Machine learning traffic studies apply these methods towards a variety of goals: emission tracking~\cite{Champahom}, 
 traffic jam forecasts~\cite{HAMMOUMI2025813}, and accident prediction~\cite{AHMED2023100814}, but
 they share similar methods, machine learning techniques, and limitations in the creation of their traffic models. 
 
+
 Machine learning models suffer from a lack of interpretability; the model simply reads out the result without speaking on the
 factors that went into that decision. For instance, an XGBoost model may say that there will not be an accident on Beall Avenue tomorrow,
 but it will not be able to say that it made that decision because the weather will be clear, or because accidents occur less often
-on Wednesdays, or because it is springtime. In order to create interpretable results, studies use local interpretable methods like
+on Wednesdays, or because it is springtime. A lack of explainability in machine learning models is both uninformative and 
+seen as unreliable by policymakers who don't understand how the result came to be. 
+In order to create interpretable results, studies use local interpretable methods like
 SHapley's Additive exPlanation (SHAP), as well as global feature importance methods like Permutation Feature Importance (PFI)
 and Feature Importance Ranking Measures (FIRM). Local feature importance conveys information about why the model made each specific
 decision, whereas global feature importance explains which features are most important across the entire dataset. 
@@ -134,9 +128,10 @@ create traffic flows. Data privacy concerns contribute to the already herculean 
 Even when data is available, the data may not accurately represent the actual traffic patterns in the city. For instance, many studies use data acquired from Uber or Waze
 to create neural network-based models, but acknowledge that training a model based on only one transportation platform may be biased since
 it would not represent the traffic of all individuals within the city~\cite{HAMMOUMI2025813}. Finally, data availibility varies between cities and regions, which
-results in more data-rich areas receiving more researching resources.
+results in more data-rich areas receiving more researching resources. The majority of traffic accident models focus on large cities where data is more
+readily available, rather than small cities where different factors may contribute to accident occurance and severity.
 Urbanized cities in North America have a larger abundance of data available to train machine learning models or neural networks, such as Uber 
-data, sensors, cameras, and satellite data. Developing cities face greater challenges in acquiring the data required to model traffic flows,
+data, sensors, cameras, and satellite data. Developing cities face greater challenges in acquiring the data required to model traffic flows~\cite{Dorosan},
 and research projects often require collaboration with local governments in order to place sensors or otherwise acquire traffic data that can be used for analysis.
 
 
