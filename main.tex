@@ -55,9 +55,6 @@ information to traffic officials on strategic decisions that can be made to enha
 
 
 \section{Background}
-Recent approaches using machine learning and neural networks produce models 
-of traffic flows, jams, and accidents have shown a marked increase in accuracy of traffic modeling compared to traditional statistical methods.
-
 The decision tree machine learning models of XGBoost and Random Forest are frequently used to model traffic in the literature.
 Decision trees are simple machine learning algorithms that split into smaller, more specific branches, and
 come to a decision by tracing a path down the tree. In order to figure out which path to go down, the decision tree can be thought of as 
@@ -81,34 +78,9 @@ allowed to branch or how many decision trees the model should have. Too many tre
 too few trees will not fit the model closely enough to the data and leave a wide margin of error. 
 Bayesian optimization techniques are used to determine the parameters that the model should use for optimal accuracy.
 
-Decision trees can solve classification problems--problems
-that give yes/no answers--and regression problems--problems that output a number showing the probability that something will happen.
-
-Machine learning methods perform well for classification problems, that is, creating a model that will say whether an accident
-will occur or not. 
-
-
-Decision tree models suffer from a lack of interpretability--the model simply reads out a number without speaking on the
-factors that went into that decision. An XGBoost model may say that there will not be an accident on Beall Avenue tomorrow,
-but it will not be able to say that it made that decision because the weather will be clear, or because accidents occur less often
-on Wednesdays, or because it is springtime. In order to create interpretable results, many studies use SHAP, FIRM, 
-
-
-Studies share limitations and concerns. In any smart city project, privacy becomes an issue as personal travel data is being used to
-create traffic flows. Data privacy concerns contribute to the already herculean difficulty in acquiring the necessary data to create traffic models.
-Even when data is available, the data may not accurately represent the actual traffic patterns in the city. For instance, many studies use data acquired from Uber or Waze
-to create neural network-based models, but acknowledge that training a model based on only one transportation platform may be biased since
-it would not represent the traffic of all individuals within the city. Finally, data availibility varies between cities and regions, which
-results in more data-rich areas receiving more researching resources.
-Urbanized cities in North America have a larger abundance of data available to train machine learning models or neural networks, such as Uber 
-data, sensors, cameras, and satellite data. Developing cities face greater challenges in acquiring the data required to model traffic flows,
-and research projects often require collaboration with local governments in order to place sensors or otherwise acquire traffic data that can be used for analysis.
-
-
-
 \section{Related Works}
 A long history of data-driven traffic models that have been used to make planning decisions. 
-Analysis-absent approaches involve plotting a simple database of
+Data visualization methods plot a simple database of
 accident data onto a map to give the data an easily visualized, geospatial component. Other visualization models utilize BI graphics and tables to display
 accident causes or traffic metrics. These approaches cleanly visual historical accident data
 but do not model or predict future accidents.
@@ -124,19 +96,41 @@ limits their ability to handle non-linear relationships or the incorporation of 
 ARIMA, specifically, handles short-term time-based predictions well, but struggles with real-time traffic modeling, managing
 the impact of traffic flows from multiple locations, or handling data with a large variety of variables. 
 
-
+Recent approaches using machine learning and neural networks produce models 
+of traffic flows, jams, and accidents have shown a marked increase in accuracy of traffic modeling compared to traditional statistical methods.
 A large body of literature showcase the various ways machine learning has been used to model traffic flows.
 One study in Thailand models traffic flows and car sales to track emissions across the city, while another study models traffic
-to create a signal traffic control system in Ali Mendjeli, Algeria. Others model traffic jams and others focus on accident prediction, but
+to create a signal traffic control system in Ali Mendjeli, Algeria. Others model traffic jams, accident prediction, and travel time, but
 most traffic studies share similar methods, machine learning techniques, and limitations in the creation of their traffic models. 
 
-Decision tree machine learning models often do not make real-time prediction models, but
-perform especially well on tabular data that is often available for modeling problems. Random Forest and XGBoost have similar accuracy,
+A plurality of studies have observed the superior performance of machine learning models, especially decision tree algorithms, over neural 
+networks such as LSTM or CNNs for modeling tabular traffic data. Random Forest and XGBoost have similar accuracy,
 with some comparison studies finding an edge when using XGBoost and some finding Random Forest to be the most efficient.
-A plurality of studies have observed the superior performance of decision tree models over neural 
-networks such as LSTM or CNNs for modeling tabular traffic data. 
+Decision tree models often do not create real-time traffic maps, but perform especially well on tabular data that is often available for modeling problems. 
+K Nearest Neighbors (KNN) is another frequently used machine learning model used to analyze traffic. 
 
-Neural networks perform well in 
+Machine learning models suffer from a lack of interpretability--the model simply reads out a number without speaking on the
+factors that went into that decision. An XGBoost model may say that there will not be an accident on Beall Avenue tomorrow,
+but it will not be able to say that it made that decision because the weather will be clear, or because accidents occur less often
+on Wednesdays, or because it is springtime. In order to create interpretable results, studies use local interpretable methods like
+SHapley's Additive exPlanation (SHAP), as well as global feature importance methods like Permutation Feature Importance (PFI)
+and Feature Importance Ranking Measures (FIRM). Local feature importance conveys information about why the model made each specific
+decision, whereas global feature importance explains which features are most important across the entire dataset. 
+However, the effectiveness of each interpretability method may vary based on the machine learning method used, as Abdulrashid \cite{ABDULRASHID2025103969}
+noted that each feature importance model gave different results when used for each different machine learning method.
+
+Neural networks perform well when performing real-time traffic, such as real time traffic signal decision making. Long Short-Term Memory (LSTM)
+and Convoluted Neural Network (CNN) are commonly used and handle spatiotemporal data better than machine learning models. 
+
+Traffic modeling studies share limitations and concerns. In any smart city project, privacy becomes an issue as personal travel data is being used to
+create traffic flows. Data privacy concerns contribute to the already herculean difficulty in acquiring the necessary data to create traffic models.
+Even when data is available, the data may not accurately represent the actual traffic patterns in the city. For instance, many studies use data acquired from Uber or Waze
+to create neural network-based models, but acknowledge that training a model based on only one transportation platform may be biased since
+it would not represent the traffic of all individuals within the city. Finally, data availibility varies between cities and regions, which
+results in more data-rich areas receiving more researching resources.
+Urbanized cities in North America have a larger abundance of data available to train machine learning models or neural networks, such as Uber 
+data, sensors, cameras, and satellite data. Developing cities face greater challenges in acquiring the data required to model traffic flows,
+and research projects often require collaboration with local governments in order to place sensors or otherwise acquire traffic data that can be used for analysis.
 
 
 \section{Methodology}
