@@ -2,30 +2,45 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
-from xgboost import XGBRegressor
+from xgboost import XGBClassifier
 import numpy as np
 
 #Load data
-df = pd.read_csv("C:/Users/alyss/Downloads/traffic_data.csv")
-#print(df)
+df = pd.read_csv("C:/Users/alyss/Downloads/OH260225190059543S845PK/CrashStatistics.csv")
+df.drop(columns=['LocalReportNumber','DocumentNumber','HitSkip', 'SecondaryCrash','UnitInError','County','FIPSPlaceCode', 'PhotosTaken', 'OH2', 'OH3','OH1P','OHOther','PrivateProperty','ReportingAgencyNCIC','Narrative','ReportTakenBy','Supplement','CrashReportedDateTime','DispatchedDateTime','ArrivedDateTime','SceneClearedDateTime','OtherInvestigationTime','OfficerName','OfficerBadgeNumber','CheckedByOfficerName','CheckedByBadgeNumber'], inplace=True)
+#print(list(df))
+#X values: CrashDateTime, Weather, LightCondition
+#Other possible X values: LocationFirstHarmfulEvent, IntersectionOrApproachRelated/Number of Approaches, WithinInterchangeArea, Manner of Collision
+#Y values: CrashSeverity, SecondaryCrash, NumberOfUnits
+#Clean distance from reference data
 
-#Convert and split "Time" to numerical values
-df["Time"] = pd.to_datetime(df["Time"])
-df["Year"] = df["Time"].dt.year
-df["Month"] = df["Time"].dt.month
-df["Day"] = df["Time"].dt.day
-df["Hour"] = df["Time"].dt.hour
-df["Minute"] = df["Time"].dt.minute
-df = df.drop(columns=["Time"])
-print(df)
+#Things I am thinking of: 
+# Find some way to normalize location data - or perhaps don't include location data?
+# Instead of creating an "accident - no accident" model, create a severity model?
+# If I wanted to create an accident classification model I would also have to have traffic data for all the traffic that occurred and I don't have that.
+
+#Convert and split "Time" to int values
+df["CrashDateTime"] = pd.to_datetime(df["CrashDateTime"])
+df["Year"] = df["CrashDateTime"].dt.year
+df["Month"] = df["CrashDateTime"].dt.month
+df["Day"] = df["CrashDateTime"].dt.day
+df["Hour"] = df["CrashDateTime"].dt.hour
+df["Minute"] = df["CrashDateTime"].dt.minute
+df = df.drop(columns=["CrashDateTime"])
+#print(list(df))
 
 #Encode "Location" to a categorical value
 le = LabelEncoder()
-df['Location'] = le.fit_transform(df['Location'])
+#df['Location'] = le.fit_transform(df['Location'])
+df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
+df['LightCondition'] = le.fit_transform(df['LightCondition'])
+df['Weather'] = le.fit_transform(df['Weather'])
+
 
 #Create lists of feature and target columns (x feature, y target)
-x = df[['Location', 'Year', 'Month', 'Day', 'Hour', 'Minute', 'Vehicles']]
-y = df['Accidents']
+x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather']]
+y = df['CrashSeverity']
+
 
 #Split training and testing data
 X_train, X_test, y_train, y_test = train_test_split(
@@ -36,7 +51,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # == Using XGBoost to predict accidents ==
 
 #Set base parameters for XGBoost model
-model = XGBRegressor(
+model = XGBClassifier(
     n_estimators=200,
     learning_rate=0.05,
     max_depth=5,
@@ -46,8 +61,16 @@ model = XGBRegressor(
 )
 model.fit(X_train, y_train)
 
+y_pred = model.predict(X_test)
+print("XGBoost prediction: ")
+print(*y_pred)
 
-print(model.predict(X_test))
+
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+
+print("Mean Squared Error: " + str(mse))
+print("Root Mean Squared Error: " + str(rmse))
 
 
 #Create function to run XGBoost for given parameters
@@ -76,5 +99,5 @@ def predict_accidents(location, time_str, num_vehicles):
 
 
 #Sample prediction
-print("Predicted accidents for Intersection A at 17:30 on 2023-06-01 with 100 vehicles: ",
-      predict_accidents("Intersection A", "2023-06-01 17:30", 100))
+#print("Predicted accidents for Intersection A at 17:30 on 2023-06-01 with 100 vehicles: ",
+#      predict_accidents("Intersection A", "2023-06-01 17:30", 100))

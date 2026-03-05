@@ -1,13 +1,19 @@
 Part 1: Application of 
 find data
-- include spatiotemporal data
+- include spatiotemporal data - done, latitude and longitude
 data preprocessing: feature selection
 - SFS, SBS
 - data preprocessing: feature scaling - NOT REQUIRED
-(statistical baseline) - 
+(statistical baseline) - ARIMA, historical averages
+
 apply xgboost model - do for demo next week
 optimization of hyperparameters - bayesian optimization, optimizes for global min
+
 optional: feature importance - SHAP (local), global: permutation feature importance (PFI) and feature importance ranking measure (FIRM)
+
+Goals for next week: 
+- working XGBoost model on real data
+- Feature importance
 
 Part 2: Interactive map
 Plot the results on a map?
