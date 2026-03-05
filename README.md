@@ -1,4 +1,4 @@
-# Using Machine Learning (XGBoost) Methods to Analyze Traffic Flows in Lima, Peru
+# Modeling Traffic Accidents in Wooster, Ohio using XGBoost Machine Learning Analysis
 A brief description.
 
 
