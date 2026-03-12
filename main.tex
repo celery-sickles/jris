@@ -134,31 +134,51 @@ Urbanized cities in North America have a larger abundance of data available to t
 data, sensors, cameras, and satellite data. Developing cities face greater challenges in acquiring the data required to model traffic flows~\cite{Dorosan},
 and research projects often require collaboration with local governments in order to place sensors or otherwise acquire traffic data that can be used for analysis.
 
-
+%Methodology section
 \section{Methodology}
+- Built an XGBoost machine learning model to forecast the severity of accidents in Wooster, Ohio based on weather
+- Research goals: Build a system to clearly and intelligently show where traffic accidents will be and their causes.
+- Constructed in python. Used pandas, numpy for stastical data, xgboost and scikit-learn for machine learning, will use leaflet for visualization.
+- Feature selection - built in XGBoost feature selection; OneHotEncoder for categorical data, standard numerical encoder for
+numerical data, label encoder for crash severity, the hyperparameter optimization techniques I used.
 
 \subsection{Data Gathering}
 The methods I used to gather the data (Ohio Department of Transportation)
 Mapping location coordinates into data that can be processed by XGBoost and that can be used to plot the data
 
 \subsection{Statistical Baseline}
-ARIMA, 
+ARIMA, historical averages, and why I used these methods
 
 \subsection{XGBoost}
 I plan to write about the XGBoost model pipeline: data preprocessing, feature selection, and parameter optimization.
 
-\subsection{Visual}
-Write about the methods I used to plot the accident data on a map of Wooster, Ohio.
+\subsection{Visualization}
+Write about the methods I used to plot the accident data on a map of Wooster, Ohio. (leaflet)
 
+%Implementation section
+\section{Implementation}
+- Major components: XGBoost model and the pipeline that goes into training it, visualization map
+- Important design choices: What type of model I'm using (XGBoost), categorical data, accident severity forecast, the optimization measures I'm using.
+- What will I show: A diagram of the accuracy at each stage; the final leaflet map
 
-
+%Results section
 \section{Results}
+- What outputs or measurements: statistical baseline, accuracy measurement, cross entropy loss, mean squared error
+- Success - having accuracy above 85\%. Failure: having accuracy below 73\%.
+- Figure with explanatory feature models - shows which features were most/least important in predicting severity
 
-\subsection{}
+\subsection{Stastical Baseline}
+Output of the statistical baseline
 
 \subsection{XGBoost}
 Output for XGBoost prediction
 Accuracy output for XGBoost model
+
+\subsection{Explanatory feature model}
+Output for the most important features
+
+\subsection{Visualization}
+Output of the map where the accidents are plotted
 
 \subsection{}
 An exemplary figure is shown in Figure~\ref{fig:dijkstra}. Any time a figure is used, it must have a capation and be directly referred to and discussed in the text.
@@ -174,8 +194,22 @@ An exemplary figure is shown in Figure~\ref{fig:dijkstra}. Any time a figure is 
  \end{center}
 \end{figure}
 
+%SAnalysis and Discussion
+\section{Analysis and Discussion}
+- Compare results against the literature - most of them report the accuracy and mean squared error
+- What do I expect to learn from the results? 
+  obvious goals: factors that most contribute to traffic accident severity, locations where traffic accidents take place
+  meta goals: better ways to train ML models, ways to visualize ML traffic models in a way that is useful to policymakers.
+- Limitations: data especially - lack of data, computational power.
 
+\subsection{}
+Analyze dfferent methods that increased the accuracy of the models.
+Analyze the meaning of the models, especially the feature explanation - which contributes most to car accidents
+Analyze location of traffic models
 
+\subsection{Limitations}
+
+%Conclusion section
 \section{Conclusion}
 
 \bibliographystyle{acm}

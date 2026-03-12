@@ -39,7 +39,7 @@ df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
 
 
 #Create lists of feature and target columns (x feature, y target)
-x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided', "IntersectionOrApproachRelated","NumberOfApproaches","WithinInterchangeArea"]]
+x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided', "IntersectionOrApproachRelated","NumberOfApproaches","WithinInterchangeArea","Latitude","Longitude"]]
 y = df['CrashSeverity']
 
 
@@ -74,7 +74,7 @@ data_transformer = ColumnTransformer(
     
 #Set base parameters for XGBoost model (to use in pipeline) (adjust parameters with hyperoptimization later)
 model_1 = XGBClassifier(
-    n_estimators=1,
+    n_estimators=100,
     learning_rate=0.05,
     max_depth=4,
     subsample=0.8,
@@ -93,6 +93,8 @@ feature_selector = SelectFromModel(
     ),
     threshold="median"
 )
+
+print(feature_selector.prefit(X_train, y_train))
 
 from sklearn.pipeline import Pipeline
 xgb_pipeline =  Pipeline(steps = [
