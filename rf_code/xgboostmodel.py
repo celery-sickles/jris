@@ -4,6 +4,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
 from xgboost import XGBClassifier
 import numpy as np
+from mlxtend.feature_selection import SequentialFeatureSelector as SFS
+
 
 #Load data
 df = pd.read_csv("C:/Users/alyss/Downloads/OH260225190059543S845PK/CrashStatistics.csv")
@@ -35,10 +37,13 @@ le = LabelEncoder()
 df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
 df['LightCondition'] = le.fit_transform(df['LightCondition'])
 df['Weather'] = le.fit_transform(df['Weather'])
+df['MannerOfCollision'] = le.fit_transform(df['MannerOfCollision'])
+df['RoadwayDivided'] = le.fit_transform(df['RoadwayDivided'])
+
 
 
 #Create lists of feature and target columns (x feature, y target)
-x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather']]
+x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided']]
 y = df['CrashSeverity']
 
 
@@ -51,7 +56,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # == Using XGBoost to predict accidents ==
 
 #Set base parameters for XGBoost model
-model = XGBClassifier(
+model_1 = XGBClassifier(
     n_estimators=200,
     learning_rate=0.05,
     max_depth=5,
@@ -59,11 +64,47 @@ model = XGBClassifier(
     colsample_bytree=0.8,
     random_state=42
 )
-model.fit(X_train, y_train)
 
-y_pred = model.predict(X_test)
-print("XGBoost prediction: ")
-print(*y_pred)
+# == Feature selection ==
+
+#sbs = SFS(model, k_features=10, forward=False, floating=False, scoring='accuracy')
+# Fitting the SBS model to the training data (X_train and y_train)
+#sbs = sbs.fit(X_train, y_train)
+#selected_features = X_train.columns[sbs.get_support()]
+
+#print(selected_features)
+
+
+model_1.fit(X_train, y_train)
+y_pred = model_1.predict(X_test)
+
+
+#Built in feature importance
+model_2 = XGBClassifier(
+    n_estimators=200,
+    learning_rate=0.05,
+    max_depth=5,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+
+importance = model_2.feature_importances_
+
+feature_importance = pd.DataFrame({
+    "feature": x.columns,
+    "importance": importance
+}).sort_values(by="importance", ascending=False)
+
+print(feature_importance)
+
+top_features = feature_importance.head(10)["feature"]
+
+model_2.fit(X_train[top_features], y_train)
+y_pred = model_2.predict(X_test)
+
+#print("XGBoost prediction: ")
+#print(*y_pred)
 
 
 mse = mean_squared_error(y_test, y_pred)
