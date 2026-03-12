@@ -48,3 +48,51 @@ Sleft, Sright, Gain = Sleft + Sright - Sroot
 Mean squared error (MSE) - loss function
 
 is another field of study in which machine learning analysis is used to decrease congestion in urban settings.
+
+
+
+Discarded code, because you can't comment out sections in python:
+
+#Encode "Location" to a categorical value
+le = LabelEncoder()
+#df['Location'] = le.fit_transform(df['Location'])
+df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
+df['LightCondition'] = le.fit_transform(df['LightCondition'])
+df['Weather'] = le.fit_transform(df['Weather'])
+df['MannerOfCollision'] = le.fit_transform(df['MannerOfCollision'])
+df['RoadwayDivided'] = le.fit_transform(df['RoadwayDivided'])
+
+
+#Built in feature importance
+model_2 = XGBClassifier(
+    n_estimators=200,
+    learning_rate=0.05,
+    max_depth=5,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    random_state=42
+)
+
+importance = model_2.feature_importances_
+
+feature_importance = pd.DataFrame({
+    "feature": x.columns,
+    "importance": importance
+}).sort_values(by="importance", ascending=False)
+
+print(feature_importance)
+
+top_features = feature_importance.head(10)["feature"]
+
+model_2.fit(X_train[top_features], y_train)
+
+
+
+# == Feature selection ==
+
+#sbs = SFS(model, k_features=10, forward=False, floating=False, scoring='accuracy')
+# Fitting the SBS model to the training data (X_train and y_train)
+#sbs = sbs.fit(X_train, y_train)
+#selected_features = X_train.columns[sbs.get_support()]
+
+#print(selected_features)

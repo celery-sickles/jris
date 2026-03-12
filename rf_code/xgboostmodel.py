@@ -4,8 +4,16 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
 from xgboost import XGBClassifier
 import numpy as np
-from mlxtend.feature_selection import SequentialFeatureSelector as SFS
+#from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 
+
+
+#ML pipeline steps:
+
+#Preprocessing: ignore null values, encode categorical variables, standardize variables (onehotencoder)
+#Feature selection
+#Cross validation
+#Hyperparameter optimization
 
 #Load data
 df = pd.read_csv("C:/Users/alyss/Downloads/OH260225190059543S845PK/CrashStatistics.csv")
@@ -15,11 +23,6 @@ df.drop(columns=['LocalReportNumber','DocumentNumber','HitSkip', 'SecondaryCrash
 #Other possible X values: LocationFirstHarmfulEvent, IntersectionOrApproachRelated/Number of Approaches, WithinInterchangeArea, Manner of Collision
 #Y values: CrashSeverity, SecondaryCrash, NumberOfUnits
 #Clean distance from reference data
-
-#Things I am thinking of: 
-# Find some way to normalize location data - or perhaps don't include location data?
-# Instead of creating an "accident - no accident" model, create a severity model?
-# If I wanted to create an accident classification model I would also have to have traffic data for all the traffic that occurred and I don't have that.
 
 #Convert and split "Time" to int values
 df["CrashDateTime"] = pd.to_datetime(df["CrashDateTime"])
@@ -31,15 +34,9 @@ df["Minute"] = df["CrashDateTime"].dt.minute
 df = df.drop(columns=["CrashDateTime"])
 #print(list(df))
 
-#Encode "Location" to a categorical value
+#Label encoding on y
 le = LabelEncoder()
-#df['Location'] = le.fit_transform(df['Location'])
 df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
-df['LightCondition'] = le.fit_transform(df['LightCondition'])
-df['Weather'] = le.fit_transform(df['Weather'])
-df['MannerOfCollision'] = le.fit_transform(df['MannerOfCollision'])
-df['RoadwayDivided'] = le.fit_transform(df['RoadwayDivided'])
-
 
 
 #Create lists of feature and target columns (x feature, y target)
@@ -52,10 +49,33 @@ X_train, X_test, y_train, y_test = train_test_split(
     x, y, test_size=0.2, random_state=42
 )
 
+#Preprocessing: Automatically convert and encode categorical columns
 
-# == Using XGBoost to predict accidents ==
+#Fill all unknown values with 0
 
-#Set base parameters for XGBoost model
+#Select numerical and categorical columns
+numeric_features = x.select_dtypes(include="number").columns
+categorical_features = x.select_dtypes(exclude="number").columns
+#print(type(numeric_features))
+#print(categorical_features)
+
+#Transform data
+from sklearn.pipeline import Pipeline
+import sklearn.preprocessing as pre
+from sklearn.compose import ColumnTransformer
+
+#("imputer", SimpleImputer(strategy="median")),
+data_transformer = ColumnTransformer(
+  transformers = [
+    ('rescale numeric', pre.StandardScaler(), numeric_features),
+    ('recode categorical', 
+      pre.OneHotEncoder(handle_unknown = 'ignore'), 
+      categorical_features)
+    ])
+    
+#print(data_transformer.fit_transform(x).mean(axis = 0))
+
+#Set base parameters for XGBoost model (to use in pipeline) (adjust parameters with hyperoptimization later)
 model_1 = XGBClassifier(
     n_estimators=200,
     learning_rate=0.05,
@@ -65,53 +85,40 @@ model_1 = XGBClassifier(
     random_state=42
 )
 
-# == Feature selection ==
-
-#sbs = SFS(model, k_features=10, forward=False, floating=False, scoring='accuracy')
-# Fitting the SBS model to the training data (X_train and y_train)
-#sbs = sbs.fit(X_train, y_train)
-#selected_features = X_train.columns[sbs.get_support()]
-
-#print(selected_features)
-
-
-model_1.fit(X_train, y_train)
-y_pred = model_1.predict(X_test)
-
-
-#Built in feature importance
-model_2 = XGBClassifier(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=5,
-    subsample=0.8,
-    colsample_bytree=0.8,
-    random_state=42
+#Feature selection
+from sklearn.feature_selection import SelectFromModel
+feature_selector = SelectFromModel(
+    estimator=XGBClassifier(
+        n_estimators=200,
+        eval_metric="logloss",
+        random_state=42
+    ),
+    threshold="median"
 )
 
-importance = model_2.feature_importances_
+from sklearn.pipeline import Pipeline
+xgb_pipeline =  Pipeline(steps = [
+    ('preprocessing', data_transformer),
+    ("feature_selection", feature_selector),
+    ('XGB', model_1)
+    ])
 
-feature_importance = pd.DataFrame({
-    "feature": x.columns,
-    "importance": importance
-}).sort_values(by="importance", ascending=False)
-
-print(feature_importance)
-
-top_features = feature_importance.head(10)["feature"]
-
-model_2.fit(X_train[top_features], y_train)
-y_pred = model_2.predict(X_test)
+#Running the model: 
+prediction = xgb_pipeline.fit(X_train, y_train)
+#print(prediction)
+print("Test accuracy:", xgb_pipeline.score(X_test, y_test))
+#y_pred = model_1.predict(X_test)
 
 #print("XGBoost prediction: ")
 #print(*y_pred)
 
 
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
 
-print("Mean Squared Error: " + str(mse))
-print("Root Mean Squared Error: " + str(rmse))
+#mse = mean_squared_error(y_test, y_pred)
+#rmse = np.sqrt(mse)
+
+#print("Mean Squared Error: " + str(mse))
+#print("Root Mean Squared Error: " + str(rmse))
 
 
 #Create function to run XGBoost for given parameters
@@ -134,7 +141,7 @@ def predict_accidents(location, time_str, num_vehicles):
         minute,
         num_vehicles
     ]])
-    prediction = model.predict(input_data)
+    prediction = model_1.predict(input_data)
    
     return round(prediction[0], 2)
 
