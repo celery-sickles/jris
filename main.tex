@@ -136,6 +136,10 @@ and research projects often require collaboration with local governments in orde
 
 %Methodology section
 \section{Methodology}
+In order to forecast traffic accidents in Wooster, Ohio, I trained an XGBoost machine leanring model to intelligently show where traffic accidents will occur,
+their severity, and the factors that lead to severe traffic accidents. To visualize my model, I plotted the results
+on an interactive map using Leaflet.js which color codes the accidents according to severity.
+
 - Built an XGBoost machine learning model to forecast the severity of accidents in Wooster, Ohio based on weather
 - Research goals: Build a system to clearly and intelligently show where traffic accidents will be and their causes.
 - Constructed in python. Used pandas, numpy for stastical data, xgboost and scikit-learn for machine learning, will use leaflet for visualization.
@@ -163,6 +167,10 @@ Write about the methods I used to plot the accident data on a map of Wooster, Oh
 
 %Results section
 \section{Results}
+The output of the statistical baselines, the XGBoost model, and the visualization are displayed in the following section.  
+The XGBoost model modeled the 
+severity of traffic accidents in Wooster, Ohio with a [] accuracy rate. 
+
 - What outputs or measurements: statistical baseline, accuracy measurement, cross entropy loss, mean squared error
 - Success - having accuracy above 85\%. Failure: having accuracy below 73\%.
 - Figure with explanatory feature models - shows which features were most/least important in predicting severity
@@ -196,6 +204,7 @@ An exemplary figure is shown in Figure~\ref{fig:dijkstra}. Any time a figure is 
 
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
+
 - Compare results against the literature - most of them report the accuracy and mean squared error
 - What do I expect to learn from the results? 
   obvious goals: factors that most contribute to traffic accident severity, locations where traffic accidents take place
