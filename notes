@@ -96,3 +96,38 @@ model_2.fit(X_train[top_features], y_train)
 #selected_features = X_train.columns[sbs.get_support()]
 
 #print(selected_features)
+
+
+
+#Create function to run XGBoost for given parameters
+def predict_accidents(location, time_str, num_vehicles):
+    time_obj = pd.to_datetime(time_str, format='%Y-%m-%d %H:%M')
+    year = time_obj.year
+    month = time_obj.month
+    day = time_obj.day
+    hour = time_obj.hour
+    minute = time_obj.minute
+   
+    location_encoded = le.transform([location])[0]
+   
+    input_data = np.array([[
+        location_encoded,
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        num_vehicles
+    ]])
+    prediction = model_1.predict(input_data)
+   
+    return round(prediction[0], 2)
+
+
+#Sample prediction
+#print("Predicted accidents for Intersection A at 17:30 on 2023-06-01 with 100 vehicles: ",
+#      predict_accidents("Intersection A", "2023-06-01 17:30", 100))
+
+
+#Not sure if this code is necessary - I don't think it modifies data_transformer, just shows an example of how it works.
+#data_transformer.fit_transform(x).mean(axis = 0)

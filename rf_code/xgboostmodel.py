@@ -4,7 +4,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
 from xgboost import XGBClassifier
 import numpy as np
-#from mlxtend.feature_selection import SequentialFeatureSelector as SFS
 
 
 
@@ -40,7 +39,7 @@ df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
 
 
 #Create lists of feature and target columns (x feature, y target)
-x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided']]
+x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided', "IntersectionOrApproachRelated","NumberOfApproaches","WithinInterchangeArea"]]
 y = df['CrashSeverity']
 
 
@@ -73,15 +72,14 @@ data_transformer = ColumnTransformer(
       categorical_features)
     ])
     
-#print(data_transformer.fit_transform(x).mean(axis = 0))
-
 #Set base parameters for XGBoost model (to use in pipeline) (adjust parameters with hyperoptimization later)
 model_1 = XGBClassifier(
-    n_estimators=200,
+    n_estimators=1,
     learning_rate=0.05,
-    max_depth=5,
+    max_depth=4,
     subsample=0.8,
     colsample_bytree=0.8,
+    eval_metric="logloss",
     random_state=42
 )
 
@@ -104,8 +102,9 @@ xgb_pipeline =  Pipeline(steps = [
     ])
 
 #Running the model: 
-prediction = xgb_pipeline.fit(X_train, y_train)
-#print(prediction)
+xgb_pipeline.fit(X_train, y_train)
+prediction = xgb_pipeline.predict(X_test)
+print(*prediction)
 print("Test accuracy:", xgb_pipeline.score(X_test, y_test))
 #y_pred = model_1.predict(X_test)
 
@@ -120,32 +119,3 @@ print("Test accuracy:", xgb_pipeline.score(X_test, y_test))
 #print("Mean Squared Error: " + str(mse))
 #print("Root Mean Squared Error: " + str(rmse))
 
-
-#Create function to run XGBoost for given parameters
-def predict_accidents(location, time_str, num_vehicles):
-    time_obj = pd.to_datetime(time_str, format='%Y-%m-%d %H:%M')
-    year = time_obj.year
-    month = time_obj.month
-    day = time_obj.day
-    hour = time_obj.hour
-    minute = time_obj.minute
-   
-    location_encoded = le.transform([location])[0]
-   
-    input_data = np.array([[
-        location_encoded,
-        year,
-        month,
-        day,
-        hour,
-        minute,
-        num_vehicles
-    ]])
-    prediction = model_1.predict(input_data)
-   
-    return round(prediction[0], 2)
-
-
-#Sample prediction
-#print("Predicted accidents for Intersection A at 17:30 on 2023-06-01 with 100 vehicles: ",
-#      predict_accidents("Intersection A", "2023-06-01 17:30", 100))
