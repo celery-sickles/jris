@@ -31,17 +31,17 @@ df["Day"] = df["CrashDateTime"].dt.day
 df["Hour"] = df["CrashDateTime"].dt.hour
 df["Minute"] = df["CrashDateTime"].dt.minute
 df = df.drop(columns=["CrashDateTime"])
-#print(list(df))
 
 #Label encoding on y
 le = LabelEncoder()
 df['CrashSeverity'] = le.fit_transform(df['CrashSeverity'])
+print(list(df))
+print(df.shape[1])
 
 
 #Create lists of feature and target columns (x feature, y target)
 x = df[['Year', 'Month', 'Day', 'Hour', 'Minute', 'NumberOfUnits','LightCondition','Weather','MannerOfCollision', 'RoadwayDivided', "IntersectionOrApproachRelated","NumberOfApproaches","WithinInterchangeArea","Latitude","Longitude"]]
 y = df['CrashSeverity']
-
 
 #Split training and testing data
 X_train, X_test, y_train, y_test = train_test_split(
@@ -55,8 +55,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 #Select numerical and categorical columns
 numeric_features = x.select_dtypes(include="number").columns
 categorical_features = x.select_dtypes(exclude="number").columns
-#print(type(numeric_features))
-#print(categorical_features)
+print(numeric_features)
+print(categorical_features)
 
 #Transform data
 from sklearn.pipeline import Pipeline
@@ -94,8 +94,6 @@ feature_selector = SelectFromModel(
     threshold="median"
 )
 
-print(feature_selector.prefit(X_train, y_train))
-
 from sklearn.pipeline import Pipeline
 xgb_pipeline =  Pipeline(steps = [
     ('preprocessing', data_transformer),
@@ -106,9 +104,31 @@ xgb_pipeline =  Pipeline(steps = [
 #Running the model: 
 xgb_pipeline.fit(X_train, y_train)
 prediction = xgb_pipeline.predict(X_test)
-print(*prediction)
-print("Test accuracy:", xgb_pipeline.score(X_test, y_test))
+#print(*prediction)
+#print("Test accuracy:", xgb_pipeline.score(X_test, y_test))
+
+features = model_1.get_booster().feature_names
+importances = model_1.feature_importances_
+feature_importance_df = pd.DataFrame(zip(features, importances), columns=['feature', 'importance']).set_index('feature')
+print(feature_importance_df)
+
+selected_feature_indices = feature_selector.get_support(indices=True)
+#selected_feature_names = [[i] for i in selected_feature_indices]
+print("Selected feature indices:", selected_feature_indices)
 #y_pred = model_1.predict(X_test)
+
+
+selected_features_mask = feature_selector.get_support()
+print(f"Boolean Mask: {selected_features_mask}")
+
+# 2. Get the indices of selected features
+selected_features_indices = feature_selector.get_support(indices=True)
+print(f"Indices: {selected_features_indices}")
+
+# 3. Get the names of selected features
+column_names = df.columns.tolist()
+selected_feature_names = np.array(column_names)[selected_features_mask]
+print(f"Selected Feature Names: {selected_feature_names}")
 
 #print("XGBoost prediction: ")
 #print(*y_pred)
