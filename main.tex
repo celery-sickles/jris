@@ -142,18 +142,20 @@ their severity, and the factors that lead to severe traffic accidents. I aimed t
 \subsection{Data Gathering}
 The data were gathered from the Ohio Department of Transportation, which collects and records all traffic accidents that have been
 reported to law enforcement. Only data from the past five years at the time of the experiment was available, so I included accident
-reports from [January 2021] to December 2025. Potential biases could lie in the inclusion of accidents to the dataset only when
+reports from January 2021 to December 2025. Potential biases could lie in the inclusion of accidents to the dataset only when
 recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
 \subsection{Statistical Baseline}
 ARIMA, historical averages, and why I used these methods
 
 \subsection{XGBoost}
-The project was coded using Python using Jupyter notebook. The pandas package was used to read in and manipulate the raw data.
+The whole project was coded using Python in Jupyter notebook, which is especially adept at handling machine learning models
+such as XGBoost due to its multiplicity of specialized packages available
+for installation and use. For example, the pandas package was used to read in and manipulate the raw data.
 I then used the scikit-learn package to prepare the data used to train the model in the form of data preprocessing and feature selection. 
 To preprocess the data, I encoded sklearn's standard numerical encoder for numerical data, which ensured that all the numerical values 
 were viewed with equal importance. For instance, it ensured the model would not read features which store data in large numbers like 10000 as having more 
-weight than features like "minute," which only go up to 60. I used OneHotEncoder for categorical data such as "LightCondition," which assigned
+weight than features like "minute," which only go up to 60. I then used OneHotEncoder for categorical data such as "LightCondition," which assigned
 a number to each category (such as "Cloudy" or "Rainy") so that the model can read and understand the categorical data. Missing data was ignored.
 For the "y" variable of crash severity, I used the sklearn label encoder, which performed a similar function of encoding categorical data to a number
 (0, 1, 2, or 3). To determine which features should be used in the model, I first removed extraneous features from the original dataset that 
@@ -185,11 +187,11 @@ The XGBoost model modeled the
 severity of traffic accidents in Wooster, Ohio with a [] accuracy rate. 
 
 - What outputs or measurements: statistical baseline, accuracy measurement, cross entropy loss, mean squared error
-- Success - having accuracy above 85\%. Failure: having accuracy below 73\%.
+- Success - having accuracy from 75-80\%. Failure: having accuracy below 73\%.
 - Figure with explanatory feature models - shows which features were most/least important in predicting severity
 
 \subsection{Stastical Baseline}
-Output of the statistical baseline
+Output of the statistical baseline (ARIMA, historical average) graphed
 
 \subsection{XGBoost}
 Output for XGBoost prediction
@@ -201,19 +203,16 @@ Output for the most important features
 \subsection{Visualization}
 Output of the map where the accidents are plotted
 
-\subsection{}
-An exemplary figure is shown in Figure~\ref{fig:dijkstra}. Any time a figure is used, it must have a capation and be directly referred to and discussed in the text.
-
 %\begin{figure}[b] puts the image to the (closest) bottom of page
 %\begin{figure}[t] puts the image to the (closest) top of page
 %\begin{figure}[h] allows the image to float, putting it roughly wherever it was placed in the text.
-\begin{figure}[b] 
-\begin{center}
-  \includegraphics[width=5cm]{imgs/dijkstra.png}
-  \caption{Dijkstra's algorithm does not work on graphs with negative edge weights, as evidenced here.}
-  \label{fig:dijkstra}
- \end{center}
-\end{figure}
+%\begin{figure}[b] 
+%\begin{center}
+%  \includegraphics[width=5cm]{imgs/dijkstra.png}
+%  \caption{Dijkstra's algorithm does not work on graphs with negative edge weights, as evidenced here.}
+%  \label{fig:dijkstra}
+% \end{center}
+%\end{figure}
 
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
@@ -222,7 +221,6 @@ An exemplary figure is shown in Figure~\ref{fig:dijkstra}. Any time a figure is 
 - What do I expect to learn from the results? 
   obvious goals: factors that most contribute to traffic accident severity, locations where traffic accidents take place
   meta goals: better ways to train ML models, ways to visualize ML traffic models in a way that is useful to policymakers.
-- Limitations: data especially - lack of data, computational power.
 
 \subsection{}
 Analyze dfferent methods that increased the accuracy of the models.
@@ -230,9 +228,17 @@ Analyze the meaning of the models, especially the feature explanation - which co
 Analyze location of traffic models
 
 \subsection{Limitations}
+- Limitations: data especially - lack of data, computational power.
+
 
 %Conclusion section
 \section{Conclusion}
+- This project contributed to a growing body of literature which uses machine learning techniques to analyze traffic accident
+data. I found [whatever I found]. [These results will be very useful in figuring out how to decrease traffic accidents
+and their severity in the future]
+Threats to validity: Lack of data could result in inaccurate results.
+Future work could focus on other models used to analyze traffic accidents or focus on predicting traffic accidents rather
+than analyzing factors that contribute to severe accidents.
 
 \bibliographystyle{acm}
 \bibliography{bibliography.bib}
