@@ -136,28 +136,41 @@ and research projects often require collaboration with local governments in orde
 
 %Methodology section
 \section{Methodology}
-In order to forecast traffic accidents in Wooster, Ohio, I trained an XGBoost machine leanring model to intelligently show where traffic accidents will occur,
-their severity, and the factors that lead to severe traffic accidents. To visualize my model, I plotted the results
-on an interactive map using Leaflet.js which color codes the accidents according to severity.
-
-- Built an XGBoost machine learning model to forecast the severity of accidents in Wooster, Ohio based on weather
-- Research goals: Build a system to clearly and intelligently show where traffic accidents will be and their causes.
-- Constructed in python. Used pandas, numpy for stastical data, xgboost and scikit-learn for machine learning, will use leaflet for visualization.
-- Feature selection - built in XGBoost feature selection; OneHotEncoder for categorical data, standard numerical encoder for
-numerical data, label encoder for crash severity, the hyperparameter optimization techniques I used.
+In order to forecast traffic accidents in Wooster, Ohio, I trained an XGBoost machine learning model to forecast where traffic accidents will occur,
+their severity, and the factors that lead to severe traffic accidents. I aimed to clearly and intelligently show where traffic accidents will be and their causes.
 
 \subsection{Data Gathering}
-The methods I used to gather the data (Ohio Department of Transportation)
-Mapping location coordinates into data that can be processed by XGBoost and that can be used to plot the data
+The data were gathered from the Ohio Department of Transportation, which collects and records all traffic accidents that have been
+reported to law enforcement. Only data from the past five years at the time of the experiment was available, so I included accident
+reports from [January 2021] to December 2025. Potential biases could lie in the inclusion of accidents to the dataset only when
+recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
 \subsection{Statistical Baseline}
 ARIMA, historical averages, and why I used these methods
 
 \subsection{XGBoost}
-I plan to write about the XGBoost model pipeline: data preprocessing, feature selection, and parameter optimization.
+The project was coded using Python using Jupyter notebook. The pandas package was used to read in and manipulate the raw data.
+I then used the scikit-learn package to prepare the data used to train the model in the form of data preprocessing and feature selection. 
+To preprocess the data, I encoded sklearn's standard numerical encoder for numerical data, which ensured that all the numerical values 
+were viewed with equal importance. For instance, it ensured the model would not read features which store data in large numbers like 10000 as having more 
+weight than features like "minute," which only go up to 60. I used OneHotEncoder for categorical data such as "LightCondition," which assigned
+a number to each category (such as "Cloudy" or "Rainy") so that the model can read and understand the categorical data. Missing data was ignored.
+For the "y" variable of crash severity, I used the sklearn label encoder, which performed a similar function of encoding categorical data to a number
+(0, 1, 2, or 3). To determine which features should be used in the model, I first removed extraneous features from the original dataset that 
+would not have had any influence on crash severity, such as the police officer who reported it and their badge number.
+To prune the remaining features, I used the scikit-learn class SelectFromModel to include only features with a logloss
+value below the median. The scikit-learn package was additionally used to create a ML pipeline which combined the data preprocessing and feature selection
+into one step. Finally, I used the xgboost package to build the XGBoost model, which specified parameters that the
+model would use such as the number of trees and their depth.
+
+[Hyperparamter optimization - not yet done.]
 
 \subsection{Visualization}
 Write about the methods I used to plot the accident data on a map of Wooster, Ohio. (leaflet)
+
+To visualize my model, I plotted the results
+on an interactive map using Leaflet.js which color codes the accidents according to severity.
+
 
 %Implementation section
 \section{Implementation}
