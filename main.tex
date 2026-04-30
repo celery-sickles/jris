@@ -32,7 +32,7 @@ employees, politicians, and everyday people rely on accurate traffic models to m
 or traffic policy.
 
 Traffic accident analysis is an important subsection of traffic management. Motor vehicle crashes are the second leading cause of death
-in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022.~\cite{odphp}
+in the United States among people ages 1-44, with traffic fatalities causing about 44,000 deaths in 2022~\cite{odphp}.
 Traffic accident modeling utilizes traffic accident data to determine when and where traffic accidents will occur. This data can 
 be used by city planners to create policy geared towards decreasing traffic accidents~\cite{Givoni}.
 Intelligent traffic systems additionally use traffic models to reroute traffic away from accident-prone areas. 
@@ -46,7 +46,7 @@ information to traffic officials on strategic decisions that can be made to enha
 
 
 \section{Background}
-The decision tree machine learning models of XGBoost and Random Forest are frequently used to model traffic in the literature.
+The decision tree machine learning models of XGBoost and Random Forest are frequently used to model traffic in the literature~\cite{app151910499}.
 Decision trees are simple machine learning algorithms that split into smaller, more specific branches, and
 come to a decision by tracing a path down the tree. In order to figure out which path to go down, the decision tree can be thought of as 
 answering a series of questions.
@@ -62,7 +62,17 @@ The difference between XGBoost and Random Forest lies in the way that each new t
 "bagging" technique, which means that each tree is trained individually on a different subset of the data. XGBoost, in contrast, follows the 
 "boosting" technique, wherein trees are trained sequentially, with the newest tree correcting the
 errors of the previous tree. In both training techniques, each tree will come to a slightly different conclusion. 
-The model produces a single, final result by summing the result that each tree in the model comes to.
+The model produces a single, final result by summing the result that each tree in the model comes to. Figure \ref{fig:XGBoost_visual} visualizes
+the way that a computer trains an XGBoost model.
+
+\begin{figure}[t] 
+\begin{center}
+  \includegraphics[width=15cm]{XGBoost_visual.png}
+  \caption{The XGBoost training method, in which a series of trees are built on random subsets of the data, each one learning from the previous one's mistakes.}
+  \label{fig:XGBoost_visual}
+ \end{center}
+\end{figure}
+
 
 In order to optimize decision tree models, the researcher must determine specific parameters, such as how many times the decision tree should be 
 allowed to branch or how many decision trees the model should have. Too many trees results in the risk of overfitting the model, whereas
@@ -70,10 +80,10 @@ too few trees will not fit the model closely enough to the data and leave a wide
 Bayesian optimization techniques are used to determine the parameters that the model should use for optimal accuracy.
 
 \section{Related Works}
-A long history of data-driven traffic models that have been used to make planning decisions. 
+A long history of data-driven traffic models that have been used to make planning decisions~\cite{AHMED2023100814, 9798574, 11137940}. 
 Data visualization methods plot a simple database of
 accident data onto a map to give the data an easily visualized, geospatial component. Other visualization models utilize BI graphics and tables to display
-accident causes or traffic metrics. These approaches cleanly visual historical accident data
+accident causes or traffic metrics. These approaches cleanly visualize historical accident data
 but do not model or predict future accidents.
 
 The traffic management field has historically relied on statistical regression analysis for decision-making, 
@@ -92,8 +102,8 @@ traffic flows, jams, and accidents have shown a marked increase in accuracy of t
 Machine learning approaches are less computationally expensive than neural networks and excel at non real-time traffic analysis and prediction.
 A plurality of studies have observed the superior performance of machine learning models, especially decision tree algorithms, over neural 
 networks such as LSTM or CNNs in the creation of accurate traffic models. Random Forest and XGBoost have similar accuracy,
-with some comparison studies finding an edge when using XGBoost~\cite{Dorosan}~\cite{ABDULRASHID2025103969} 
-and some finding Random Forest to be the most efficient~\cite{HAMMOUMI2025813}~\cite{11253819}. 
+with some comparison studies finding an edge when using XGBoost~\cite{Dorosan, ABDULRASHID2025103969} 
+and some finding Random Forest to be the most efficient~\cite{HAMMOUMI2025813, 11253819}. 
 Decision tree models often do not create real-time traffic maps, but perform especially well on tabular data that is often available for modeling problems. 
 K-Nearest Neighbors (KNN) and Support Vector Machine are other frequently used machine learning models used to analyze traffic with similar accuracy but more computation complexity.
 Machine learning traffic studies apply these methods towards a variety of goals: emission tracking~\cite{Champahom}, 
@@ -108,17 +118,17 @@ on Wednesdays, or because it is springtime. A lack of explainability in machine 
 seen as unreliable by policymakers who don't understand how the result came to be. 
 In order to create interpretable results, studies use local interpretable methods like
 SHapley's Additive exPlanation (SHAP), as well as global feature importance methods like Permutation Feature Importance (PFI)
-and Feature Importance Ranking Measures (FIRM). Local feature importance conveys information about why the model made each specific
+and Feature Importance Ranking Measures (FIRM)~{ABDULRASHID2025103969}. Local feature importance conveys information about why the model made each specific
 decision, whereas global feature importance explains which features are most important across the entire dataset. 
-However, the effectiveness of each interpretability method may vary based on the machine learning method used, as Abdulrashid \cite{ABDULRASHID2025103969}
+However, the effectiveness of each interpretability method may vary based on the machine learning method used, as Abdulrashid~\cite{ABDULRASHID2025103969}
 noted that each feature importance model gave different results when used for each different machine learning method.
 
 Neural networks provide another type of traffic modeling framework which performs especially well for real-time
-traffic analysis, such as in determining travel time or in adaptive signal control \cite{app15073866}. Neural networks comprise
+traffic analysis, such as in determining travel time or in adaptive signal control~\cite{app15073866}. Neural networks comprise
 the backbone of 
-Long Short-Term Memory (LSTM) and Artificial Neural Network (CNN) are commonly used and useful due to their ability to 
+Long Short-Term Memory (LSTM) and Artificial Neural Network (ANN) are commonly used and useful due to their ability to 
 deftly handle spatiotemporal data.
-A study in Ali Mendjeli, Algeria uses an LSTM model to in determine accessibility of public transport in real-time~\cite{Fenghour2025}. 
+A study in Ali Mendjeli, Algeria uses an LSTM model to determine accessibility of public transport in real-time~\cite{Fenghour2025}. 
 Another study utilizes ANN to create an adaptive signal control system in AlKharj city~\cite{LOUATI2025100407}. Neural networks
 are more computationally expensive than simpler machine learning techniques, but can better handle data required for adaptive,
 real-time transit software.
@@ -136,47 +146,78 @@ and research projects often require collaboration with local governments in orde
 
 %Methodology section
 \section{Methodology}
-In order to forecast traffic accidents in Wooster, Ohio, I trained an XGBoost machine learning model to forecast where traffic accidents will occur,
-their severity, and the factors that lead to severe traffic accidents. I aimed to clearly and intelligently show where traffic accidents will be and their causes.
+The goal of this project was to determine what circumstances would strongly impact the severity of a traffic accident.
+To carry out this project, an interpretable machine learning XGBoost model was trained to forecast and analyze traffic accident severity in Wayne County, Ohio. 
+The model was made "interpretable" by conducting a feature analysis to determine what features were most indicative of 
+accident severity. The model was evaluated based on accuracy, precision and recall and compared with logistical regression models and the statistical average.
 
 \subsection{Data Gathering}
 The data were gathered from the Ohio Department of Transportation, which collects and records all traffic accidents that have been
-reported to law enforcement. Only data from the past five years at the time of the experiment was available, so I included accident
-reports from January 2021 to December 2025. Potential biases could lie in the inclusion of accidents to the dataset only when
+reported to law enforcement. Only data from the past five years at the time of the experiment was available, so only accident
+reports from January 2021 to December 2025 were used to train the model. The five year time frame nevertheless allows for enough
+statistical data to be used without going too far into the past to where the data is no longer relevant. Figure \ref{fig:arcgis} plots the accident data to their
+geographical location, color-coded by severity.
+\begin{figure}[h] 
+\begin{center}
+  \includegraphics[width=15cm]{wooster_accidents.png}
+  \caption{Accident data from 2021-2025 in Wayne County, Ohio.}
+  \label{fig:arcgis}
+ \end{center}
+\end{figure}
+%Wooster, Ohio, was chosen due to the familiarity of the researchers with the area.
+
+Potential biases could lie in the inclusion of accidents to the dataset only when
 recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
-\subsection{Statistical Baseline}
-ARIMA, historical averages, and why I used these methods
+\subsection{Data Cleaning}
+Raw data was transformed into data suitable for machine learning analysis through rigorous cleaning, selection, and transformation.
+Extraneous features from the original dataset that have no influence on crash severity, such as the police officer who reported it and their badge number,
+were removed from the dataset. The python packages pandas and scikit-learn were then used to prune and transform the remaining features
+to make them machine-readable. 
 
-\subsection{XGBoost}
-The whole project was coded using Python in Jupyter notebook, which is especially adept at handling machine learning models
-such as XGBoost due to its multiplicity of specialized packages available
-for installation and use. For example, the pandas package was used to read in and manipulate the raw data.
-I then used the scikit-learn package to prepare the data used to train the model in the form of data preprocessing and feature selection. 
-To preprocess the data, I encoded sklearn's standard numerical encoder for numerical data, which ensured that all the numerical values 
+The scikit-learn standard numerical encoder for numerical data, which ensured that all the numerical values 
 were viewed with equal importance. For instance, it ensured the model would not read features which store data in large numbers like 10000 as having more 
 weight than features like "minute," which only go up to 60. I then used OneHotEncoder for categorical data such as "LightCondition," which assigned
 a number to each category (such as "Cloudy" or "Rainy") so that the model can read and understand the categorical data. Missing data was ignored.
 For the "y" variable of crash severity, I used the sklearn label encoder, which performed a similar function of encoding categorical data to a number
 (0, 1, 2, or 3). To determine which features should be used in the model, I first removed extraneous features from the original dataset that 
-would not have had any influence on crash severity, such as the police officer who reported it and their badge number.
-To prune the remaining features, I used the scikit-learn class SelectFromModel to include only features with a logloss
-value below the median. The scikit-learn package was additionally used to create a ML pipeline which combined the data preprocessing and feature selection
+
+
+The scikit-learn class SelectFromModel pruned the remaining features to include only features with a logloss
+value below the median.
+
+
+\subsection{XGBoost}
+The project was coded using Python, which is especially adept at handling machine learning models
+such as XGBoost due to its multiplicity of specialized packages available
+for installation and use. XGBoost was chosen due to its ability to analyze non-linear trends specifically within tabular data.
+In comparison, statistical average models like ARIMA are less adept at handeling non-linear relationships.
+Additionally, XGBoost is a relatively less complex algorithm that takes less time and computational power to train than a neural network
+like an LSTM. The built in feature importance component of XGBoost and its existence as a python package further lent the
+model to use for this project.
+
+Packages like pandas package was used to read in and manipulate the raw data. 
+I then used the scikit-learn package to prepare the data used to train the model in the form of data preprocessing and feature selection. 
+To preprocess the data, 
+
+The scikit-learn package was additionally used to create a ML pipeline which combined the data preprocessing and feature selection
 into one step. Finally, I used the xgboost package to build the XGBoost model, which specified parameters that the
 model would use such as the number of trees and their depth.
 
-[Hyperparamter optimization - not yet done.]
+The model had to be adjusted significantly to account for the uneven data split inherent in the dataset. In a traffic accident
+dataset, the majority of the data had no or limited severity, while only a very small percentage contained serious injuries or fatalities, as shown in Figure \ref{fig:arcgis}.
 
-\subsection{Visualization}
-Write about the methods I used to plot the accident data on a map of Wooster, Ohio. (leaflet)
 
-To visualize my model, I plotted the results
-on an interactive map using Leaflet.js which color codes the accidents according to severity.
+Since this was a classification problem, precision, recall, and f1 scores were used to determine the accuracy of the model. 
+
+The parameters for the XGBoost model were determined using a Grid Search.
+
+
 
 
 %Implementation section
 \section{Implementation}
-- Major components: XGBoost model and the pipeline that goes into training it, visualization map
+- Major components: XGBoost model and the pipeline that goes into training it
 - Important design choices: What type of model I'm using (XGBoost), categorical data, accident severity forecast, the optimization measures I'm using.
 - What will I show: A diagram of the accuracy at each stage; the final leaflet map
 
@@ -190,6 +231,9 @@ severity of traffic accidents in Wooster, Ohio with a [] accuracy rate.
 - Success - having accuracy from 75-80\%. Failure: having accuracy below 73\%.
 - Figure with explanatory feature models - shows which features were most/least important in predicting severity
 
+\subsection{Descriptive Statistics}
+
+
 \subsection{Stastical Baseline}
 Output of the statistical baseline (ARIMA, historical average) graphed
 
@@ -197,22 +241,9 @@ Output of the statistical baseline (ARIMA, historical average) graphed
 Output for XGBoost prediction
 Accuracy output for XGBoost model
 
-\subsection{Explanatory feature model}
+\subsection{Explanatory features}
 Output for the most important features
 
-\subsection{Visualization}
-Output of the map where the accidents are plotted
-
-%\begin{figure}[b] puts the image to the (closest) bottom of page
-%\begin{figure}[t] puts the image to the (closest) top of page
-%\begin{figure}[h] allows the image to float, putting it roughly wherever it was placed in the text.
-%\begin{figure}[b] 
-%\begin{center}
-%  \includegraphics[width=5cm]{imgs/dijkstra.png}
-%  \caption{Dijkstra's algorithm does not work on graphs with negative edge weights, as evidenced here.}
-%  \label{fig:dijkstra}
-% \end{center}
-%\end{figure}
 
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
@@ -228,7 +259,7 @@ Analyze the meaning of the models, especially the feature explanation - which co
 Analyze location of traffic models
 
 \subsection{Limitations}
-- Limitations: data especially - lack of data, computational power.
+- Limitations: Lack of domain relevant knowledge.
 
 
 %Conclusion section
@@ -245,11 +276,9 @@ than analyzing factors that contribute to severe accidents.
 
 \end{document}
 
-#methodology: where you got data, how you prepared it,
-#implementation: something that you can run and see (maybe you don't need it)
+%methodology: where you got data, how you prepared it,
+%implementation: something that you can run and see (maybe you don't need it)
 
-Fig ~\ref{labelname}
-Figure should always be talked about in the text if they are included
 
 
 %Have something to introduce section before subsection
@@ -257,5 +286,10 @@ Figure should always be talked about in the text if they are included
 
 %Implementation section, then have another section that explains design choices and why you did the things you did - design choices, system architecture,
 Addendum: Use of artificial intelligence
-ChatGPT
-degree to which it was used
+
+ChatGPT was used to come up with an idea involving machine learning, ArcGIS, and traffic. The project suggested by ChatGPT
+was originally very different in scope and involved modeling traffic flows in Peru. 
+Gemini AI was used to troubleshoot error messages in the code to determine what the. Gemini AI was especially used to 
+
+%Include discussion about ensuring representative data. 
+%Confirming hypothesis about what the separation in feature importance means
