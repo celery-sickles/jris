@@ -157,7 +157,7 @@ reported to law enforcement. Only data from the past five years at the time of t
 reports from January 2021 to December 2025 were used to train the model. The five year time frame nevertheless allows for enough
 statistical data to be used without going too far into the past to where the data is no longer relevant. Figure \ref{fig:arcgis} plots the accident data to their
 geographical location, color-coded by severity.
-\begin{figure}[h] 
+\begin{figure}[] 
 \begin{center}
   \includegraphics[width=15cm]{wooster_accidents.png}
   \caption{Accident data from 2021-2025 in Wayne County, Ohio.}
@@ -170,67 +170,60 @@ Potential biases could lie in the inclusion of accidents to the dataset only whe
 recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
 \subsection{Data Cleaning}
-Raw data was transformed into data suitable for machine learning analysis through rigorous cleaning, selection, and transformation.
+The project was coded using Python, which is especially adept at handling machine learning models
+such as XGBoost due to its multiplicity of specialized packages available
+for installation and use. Raw data was transformed into data suitable for machine learning analysis through rigorous cleaning, selection, and transformation.
 Extraneous features from the original dataset that have no influence on crash severity, such as the police officer who reported it and their badge number,
 were removed from the dataset. The python packages pandas and scikit-learn were then used to prune and transform the remaining features
 to make them machine-readable. 
 
-The scikit-learn standard numerical encoder for numerical data, which ensured that all the numerical values 
+Feature data was divided into numerical and categorical data to be evaluated and transformed. All values had to be encoded into numerical values
+and adjusted to be easily read into the model. 
+ The scikit-learn standard numerical encoder for numerical data, which ensured that all the numerical values 
 were viewed with equal importance. For instance, it ensured the model would not read features which store data in large numbers like 10000 as having more 
-weight than features like "minute," which only go up to 60. I then used OneHotEncoder for categorical data such as "LightCondition," which assigned
+weight than features like "minute," which only go up to 60. OneHotEncoder was used for categorical data such as "LightCondition," which assigned
 a number to each category (such as "Cloudy" or "Rainy") so that the model can read and understand the categorical data. Missing data was ignored.
-For the "y" variable of crash severity, I used the sklearn label encoder, which performed a similar function of encoding categorical data to a number
-(0, 1, 2, or 3). To determine which features should be used in the model, I first removed extraneous features from the original dataset that 
+For the "y" variable of crash severity, the scikit-learn label encoder performed a similar function of encoding categorical data to a number
+(0, 1, 2, or 3). 
 
+The scikit-learn class SelectFromModel pruned the remaining features to include only features with a logloss value
+1.25*mean. Rather than including features with a logloss value above the median, the increased number of included features is intended to catch
+values that may be important in determining a less-represented, "fatal" crash category. 
 
-The scikit-learn class SelectFromModel pruned the remaining features to include only features with a logloss
-value below the median.
-
-
-\subsection{XGBoost}
-The project was coded using Python, which is especially adept at handling machine learning models
-such as XGBoost due to its multiplicity of specialized packages available
-for installation and use. XGBoost was chosen due to its ability to analyze non-linear trends specifically within tabular data.
+\subsection{XGBoost Model}
+ XGBoost was chosen due to its ability to analyze non-linear trends specifically within tabular data.
 In comparison, statistical average models like ARIMA are less adept at handeling non-linear relationships.
 Additionally, XGBoost is a relatively less complex algorithm that takes less time and computational power to train than a neural network
 like an LSTM. The built in feature importance component of XGBoost and its existence as a python package further lent the
 model to use for this project.
 
-Packages like pandas package was used to read in and manipulate the raw data. 
-I then used the scikit-learn package to prepare the data used to train the model in the form of data preprocessing and feature selection. 
-To preprocess the data, 
+Training and testing data was split 80-20 and the XGBoost model was trained on the training data. To enhance abstraction in the code's design, a ML pipeline was used to combine data transformation and feature selection alongside
+the XGBoost model. This enabled the creation of a single pipeline which fit the fully processed, selected features to the model
+in one step.
 
-The scikit-learn package was additionally used to create a ML pipeline which combined the data preprocessing and feature selection
-into one step. Finally, I used the xgboost package to build the XGBoost model, which specified parameters that the
-model would use such as the number of trees and their depth.
+The parameters for the XGBoost model were determined using a Grid Search. Grid Search is a hyperparameter optimization method
+used to tune the parameters of ML models--for example, the max depth of the trees, or the learning rate. Grid Search
+was chosen due to its simplicity and its ability to quickly find the best parameters when given a range of defined parameter values.
 
 The model had to be adjusted significantly to account for the uneven data split inherent in the dataset. In a traffic accident
-dataset, the majority of the data had no or limited severity, while only a very small percentage contained serious injuries or fatalities, as shown in Figure \ref{fig:arcgis}.
-
+dataset, the majority of the data had no or limited severity, while only a very small percentage contained serious injuries or fatalities, 
+as shown in Figure \ref{fig:arcgis}. To account for the uneven data split, class weights were added when fitting the XGBoost pipeline
+to penalize mistakes in the rarer categories (those with more serious outcomes) more heavily than mistakes in the more common categories.
+This ensured that the model focused more heavily on the factors that determined fatal outcomes to make up for the lack of representation
+in the dataset. 
 
 Since this was a classification problem, precision, recall, and f1 scores were used to determine the accuracy of the model. 
-
-The parameters for the XGBoost model were determined using a Grid Search.
-
-
-
-
-%Implementation section
-\section{Implementation}
-- Major components: XGBoost model and the pipeline that goes into training it
-- Important design choices: What type of model I'm using (XGBoost), categorical data, accident severity forecast, the optimization measures I'm using.
-- What will I show: A diagram of the accuracy at each stage; the final leaflet map
+Precision measures the rate of false negatives, while Recall measures the proportion of true positives that were detected by the model. 
+The f1-score represents the harmonic mean of the two values. Since these values are reported per crash severity category, they can be used
+to accurately evaluate the accuracy of the XGBoost model. This is especially valuable given the uneven data split of the dataset: 
+these statistics report the accuracy of the XGBoost model in predicting each category rather than just the overall accuracy, which would
+be heavily biased towards the most common category.
 
 %Results section
 \section{Results}
 The output of the statistical baselines, the XGBoost model, and the visualization are displayed in the following section.  
 The XGBoost model modeled the 
 severity of traffic accidents in Wooster, Ohio with a [] accuracy rate. 
-
-- What outputs or measurements: statistical baseline, accuracy measurement, cross entropy loss, mean squared error
-- Success - having accuracy from 75-80\%. Failure: having accuracy below 73\%.
-- Figure with explanatory feature models - shows which features were most/least important in predicting severity
-
 \subsection{Descriptive Statistics}
 
 
@@ -238,15 +231,67 @@ severity of traffic accidents in Wooster, Ohio with a [] accuracy rate.
 Output of the statistical baseline (ARIMA, historical average) graphed
 
 \subsection{XGBoost}
-Output for XGBoost prediction
-Accuracy output for XGBoost model
+
+The table displaying the classification metrics for the XGBoost model are displayed in Table \ref{fig:xgboost_results}. These results
+represent the model trained with the XGBoost pipeline, including the data transformation, feature selection, XGBoost model with 
+optimized parameters, and 
+
+\begin{table}[]
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+             & precision & recall & f1-score & support     \\ \hline
+0            & 0.88   & 0.31     & 0.46    & 1372 \\
+1            & 0.10   & 0.31     & 0.15    & 143  \\
+2            & 0.20   & 0.52     & 0.29    & 330  \\ \hline
+3            & 0.19   & 0.28     & 0.23    & 53   \\
+4            & 0.13   & 0.50     & 0.21    & 14   \\
+accuracy     &        &          & 0.35    & 1912 \\
+macro avg    & 0.30   & 0.39     & 0.27    & 1912 \\
+weighted avg & 0.68   & 0.35     & 0.40    & 1912
+\end{tabular}
+  \caption{Classification metrics for XGBoost model show that the XGBoost model has low accuracy across low-frequency severity categories.}
+  \label{fig:xgboost_results}
+\end{center}
+\end{table}
+
+
+\begin{table}[]
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+             & precision & recall & f1-score & support     \\ \hline
+0            & 0.72   & 1.00     & 0.84    & 1372 \\
+1            & 0.00   & 0.00     & 0.00    & 143  \\
+2            & 0.00   & 0.00     & 0.00    & 330  \\ \hline
+3            & 0.00   & 0.00     & 0.00    & 53   \\
+4            & 0.00   & 0.00     & 0.00    & 14   \\
+accuracy     & 0.72   & 1912     & 0.35    & 1912 \\
+macro avg    & 0.14   & 0.20     & 0.17    & 1912 \\
+weighted avg & 0.51   & 0.72     & 0.60    & 1912
+\end{tabular}
+  \caption{Classification metrics for "dummy" results show that the XGBoost model is proficient in guessing only the most common crash severity category "0" (Property damage only).}
+  \label{fig:dummy_results}
+\end{center}
+\end{table}
+
 
 \subsection{Explanatory features}
 Output for the most important features
-
+\begin{figure}[] 
+\begin{center}
+  \includegraphics[width=17cm]{crashseverityfactors.png}
+  \caption{.}
+  \label{fig:arcgis}
+ \end{center}
+\end{figure}
 
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
+
+\subsection{Classification metrics results}
+Because there is very high precision and low recall, that means that 
+
 
 - Compare results against the literature - most of them report the accuracy and mean squared error
 - What do I expect to learn from the results? 
@@ -270,6 +315,11 @@ and their severity in the future]
 Threats to validity: Lack of data could result in inaccurate results.
 Future work could focus on other models used to analyze traffic accidents or focus on predicting traffic accidents rather
 than analyzing factors that contribute to severe accidents.
+
+Future work should find ways to improve the model or find different methods of analyzing accident severity. The XGBoost model
+currently has low accuracy, which calls the results into question 
+
+Add a geographical element to detect hotspots
 
 \bibliographystyle{acm}
 \bibliography{bibliography.bib}
