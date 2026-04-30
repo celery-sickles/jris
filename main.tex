@@ -65,7 +65,7 @@ errors of the previous tree. In both training techniques, each tree will come to
 The model produces a single, final result by summing the result that each tree in the model comes to. Figure \ref{fig:XGBoost_visual} visualizes
 the way that a computer trains an XGBoost model.
 
-\begin{figure}[t] 
+\begin{figure}[h] 
 \begin{center}
   \includegraphics[width=15cm]{XGBoost_visual.png}
   \caption{The XGBoost training method, in which a series of trees are built on random subsets of the data, each one learning from the previous one's mistakes.}
@@ -157,7 +157,7 @@ reported to law enforcement. Only data from the past five years at the time of t
 reports from January 2021 to December 2025 were used to train the model. The five year time frame nevertheless allows for enough
 statistical data to be used without going too far into the past to where the data is no longer relevant. Figure \ref{fig:arcgis} plots the accident data to their
 geographical location, color-coded by severity.
-\begin{figure}[] 
+\begin{figure}[h] 
 \begin{center}
   \includegraphics[width=15cm]{wooster_accidents.png}
   \caption{Accident data from 2021-2025 in Wayne County, Ohio.}
@@ -170,7 +170,6 @@ Potential biases could lie in the inclusion of accidents to the dataset only whe
 recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
 \subsection{Data Cleaning}
-
 The dataset was divided into five categories of crash severity. Figure \ref{fig:distribution} shows how the data overwhelmingly
 falls into the low-severity category of "Property Damage Only," while only a very small number contain serious injuries or fatal datapoints.
 A number of adjustments were made to the model to account for the uneven distribution of data, as described in 4.3.
@@ -284,7 +283,7 @@ The comparison to a dummy variable is useful to determine how the XGBoost model'
 Precision rating of 0.72 displayed for the most frequent "0" category indicates that the model at an accuracy of 72\% as shown
 in section 4.1 before weighing each category evenly is no better than guessing the most common category for every data point
 
-\begin{table}[]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{lllll}
 \hline
@@ -316,7 +315,7 @@ from its 72\% accuracy when it guessed everything to be 0, and now triggers too 
 low precision and recall scores for both 1 and 3 similarly indicate a systematic flaw in the model's decision making
 process.
  
-\begin{table}[]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{lllll}
 \hline
@@ -342,7 +341,10 @@ weighted avg & 0.68   & 0.35     & 0.40    & 1912
 
 \subsection{Explanatory features}
 Figure \ref{fig:featureanalysis} displays a graph of the features that mattered the most to the XGBoost model when the model
-was deciding how to categorize new data points. 
+was deciding how to categorize new data points. The global feature importance analysis shows that the DrinkingRelated = False
+category is by far the most indicative of crash severity. Additionally, other "Danger" boolean variables such as the presence of
+motorcycles, pedestrians, and animals/deer are also used by the model to predict crash severity. Various MannerOfCollision
+categorical variables also appear in relatively high importance.
 
 \begin{figure}[] 
 \begin{center}
@@ -358,10 +360,9 @@ being marked false. Figure \ref{fig:nondrugcrash} visualizes the number of non-d
 to each severity category, showing that the vast majority of non-drinking related accidents fall into the "Property
 Damage Only" category. 
 
-
 \begin{figure}[] 
 \begin{center}
-  \includegraphics[width=15cm]{nondrugcrash.png}
+  \includegraphics[width=12cm]{nondrugcrash.png}
   \caption{The DrinkingRelated = False condition is heavily correlated with less severe outcomes.}
   \label{fig:nondrugcrash}
  \end{center}
@@ -370,46 +371,36 @@ Damage Only" category.
 
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
-The project's implmenetation of the XGBoost model resulted in a poor outcome
+The project's implmenetation of the XGBoost model resulted in a low accuracy rating and inconclusive results. The following sections
+compare the results found in the project to similar projects in the literature to determine the outcomes. 
 
+The classification metrics showed how the XGBoost model generated inconclusive results, primarily because it was evaluating based on
+an uneven spread of data. Other similar studies \cite{AHMED2023100814} which did traffic analysis made sure to have a dataset with
+an even distribution of datapoints for each category so as to not face a similar problem. A greater pool of data
+over a wider range would be needed to generate enough datapoints to evenly have a distribution of fatal, injury, and property
+damage categories. This study also improved their metrics by using different categories of crash severity, usually a three-fold
+category: No injury, injury, and fatal. A similar scheme can be implemented to improve accuracy of the model.
 
-\subsection{Classification metrics results}
-Classification metrics for XGBoost model show that the XGBoost model has low accuracy across low-frequency severity categories.
-
-This likely means that the model mostly just predicts the most frequent value "0" (Property damage only) 
-
-Because there is very high precision and low recall, that means that 
-
-show that the XGBoost model is proficient in guessing only the most common crash severity category "0" (Property damage only)
-
-- Compare results against the literature - most of them report the accuracy and mean squared error
-- What do I expect to learn from the results? 
-  obvious goals: factors that most contribute to traffic accident severity, locations where traffic accidents take place
-  meta goals: better ways to train ML models, ways to visualize ML traffic models in a way that is useful to policymakers.
-
-\subsection{Feature Importance Analysis}
-
-Analyze dfferent methods that increased the accuracy of the models.
-Analyze the meaning of the models, especially the feature explanation - which contributes most to car accidents
-Analyze location of traffic models
+Our results found that non-drug related accidents were by far the most useful indicator of a non-serious traffic accident. 
+These results are supported by general crash statistics, which state that about 30\% of all traffic fatalities
+are caused by drug-related accidents \cite{something}. Previous statistical analysis have also found that certain 
+types of collisions, such as head-on collisions, are more likely to result in severe accidents. 
 
 
 %Conclusion section
 \section{Conclusion}
-- This project contributed to a growing body of literature which uses machine learning techniques to analyze traffic accident
-data. I found [whatever I found]. [These results will be very useful in figuring out how to decrease traffic accidents
-and their severity in the future]
-Threats to validity: Lack of data could result in inaccurate results.
-Future work could focus on other models used to analyze traffic accidents or focus on predicting traffic accidents rather
-than analyzing factors that contribute to severe accidents.
+The project sought to determine the factors that contribute most to traffic accident severity. From a development perspective,
+it sought better ways to train ML models and ways to visualize ML traffic models in a way that is useful to policymakers.
+The research contributed to a growing body of literature which uses machine learning techniques to analyze traffic accident
+data. It found that non-drug-related-accidents were by far the most likely to have less severe traffic accident
+outcomes. MannerOfCollision was also a key determinant of traffic outcomes.
+These results are supported by general crash statistics, which state that and that certain types of collisions, such as head-on
+collisions, are more likely to result in severe accidents. These results can be generalized to assist policymakers
+and urban planners in ways to decrease the severity of traffic accidents. 
 
-Future work should find ways to improve the model or find different methods of analyzing accident severity. The XGBoost model
-currently has low accuracy, which calls the results into question 
-
-
-
-\subsection{Limitations}
-The project was limited by a lack of data, especially data of higher accident severity. Further, the scope of the
+The project was limited by a lack of data, especially data of higher accident severity. The low accuracy rating
+of the model indicates the possibility for inaccurate results predicted by the model and a potential
+threat to validity. Further, the scope of the
 data was limited by time constraints and by the inability to obtain traffic count data that could have been
 used for traffic modeling and limited the analysis to accident severity prediction. 
 
@@ -437,7 +428,6 @@ ranking from XGBoost.
 %implementation: something that you can run and see (maybe you don't need it)
 
 
-
 %Have something to introduce section before subsection
 %Need to have more than one paragraph in each subsection - if not, combine subsections
 
@@ -448,5 +438,5 @@ ChatGPT was used to come up with an idea involving machine learning, ArcGIS, and
 was originally very different in scope and involved modeling traffic flows in Peru. 
 Gemini AI was used to troubleshoot error messages in the code, specifically with regards to code to find the feature importance.
 
+Gemini AI also led me to use a dummy variable to test whether the code performed better than the most common guess.
 %Include discussion about ensuring representative data. 
-%Confirming hypothesis about what the separation in feature importance means
