@@ -119,3 +119,37 @@ sample_weights = np.array([class_weights_dict[cls] for cls in y_train])
 xgb_pipeline = xgb_pipeline.fit(X_train, y_train, XGB__sample_weight=sample_weights)
 y_pred = xgb_pipeline.predict(X_test)
 
+print(f"Feature importances: {model_1.feature_importances_}")
+print("Feature importance length: "+str(len(model_1.feature_importances_)))
+print("Features length: "+str(len(x.columns)))
+
+#Notes: it stores the result from the pipeline and calls model_1 that has already been fitted with the previous kernel
+
+feature_list = model_1.get_booster().feature_names
+print(feature_list)
+
+original_feature_names = X_train.columns.tolist()
+print(original_feature_names)
+
+importances = model_1.feature_importances_
+feature_importance_df = pd.DataFrame(zip(column_names, importances), columns=['feature', 'importance']).set_index('feature')
+print(feature_importance_df)
+
+clf = XGBClassifier(n_estimators=5, random_state=42)
+clf = clf.fit(transformed_data, y_train)
+
+#feature_list = clf.get_booster().feature_names
+
+#print(feature_list)
+
+importances = clf.feature_importances_
+column_names = data_transformer.get_feature_names_out()
+
+#print(f"Feature importances: {clf.feature_importances_}")
+#print("Feature importance length: "+str(len(clf.feature_importances_)))
+#print("Features length: "+str(len(x.columns)))
+
+feature_importance_df = pd.DataFrame(zip(column_names, importances), columns=['feature', 'importance']).set_index('feature')
+df_sorted = feature_importance_df.sort_values(by='importance', ascending=False)
+print(df_sorted)
+

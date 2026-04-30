@@ -170,6 +170,19 @@ Potential biases could lie in the inclusion of accidents to the dataset only whe
 recorded by law enforcement, excluding numerous minor accidents or accidents in rural areas further from police stations.
 
 \subsection{Data Cleaning}
+
+The dataset was divided into five categories of crash severity. Figure \ref{fig:distribution} shows how the data overwhelmingly
+falls into the low-severity category of "Property Damage Only," while only a very small number contain serious injuries or fatal datapoints.
+A number of adjustments were made to the model to account for the uneven distribution of data, as described in 4.3.
+
+\begin{figure}[] 
+\begin{center}
+  \includegraphics[width=15cm]{crash severity distribution.png}
+  \caption{Distribution of datapoints for each crash severity category.}
+  \label{fig:distribution}
+ \end{center}
+\end{figure}
+
 The project was coded using Python, which is especially adept at handling machine learning models
 such as XGBoost due to its multiplicity of specialized packages available
 for installation and use. Raw data was transformed into data suitable for machine learning analysis through rigorous cleaning, selection, and transformation.
@@ -184,7 +197,23 @@ were viewed with equal importance. For instance, it ensured the model would not 
 weight than features like "minute," which only go up to 60. OneHotEncoder was used for categorical data such as "LightCondition," which assigned
 a number to each category (such as "Cloudy" or "Rainy") so that the model can read and understand the categorical data. Missing data was ignored.
 For the "y" variable of crash severity, the scikit-learn label encoder performed a similar function of encoding categorical data to a number
-(0, 1, 2, or 3). 
+(0, 1, 2, or 3). The results of this encoding are displayed in Table 
+
+\begin{table}[]
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+Category Name            & Label \\ \hline
+Property Damage Only     & 0     \\
+Injury Possible          & 1     \\
+Minor Injury Suspected   & 2     \\
+Serious Injury Suspected & 3     \\
+Fatal                    & 4     \\
+\end{tabular}
+\caption{A table descring the label encoding of crash severity.}
+  \label{fig:crashcategories}
+\end{center}
+\end{table}
 
 The scikit-learn class SelectFromModel pruned the remaining features to include only features with a logloss value
 1.25*mean. Rather than including features with a logloss value above the median, the increased number of included features is intended to catch
@@ -222,39 +251,38 @@ be heavily biased towards the most common category.
 %Results section
 \section{Results}
 The output of the statistical baselines, the XGBoost model, and the visualization are displayed in the following section.  
-The XGBoost model modeled the 
-severity of traffic accidents in Wooster, Ohio with a [] accuracy rate. 
-\subsection{Descriptive Statistics}
+The XGBoost model forecasted the severity of traffic accidents in Wooster, Ohio with a 35\% accuracy rate. 
 
-
-\subsection{Stastical Baseline}
-Output of the statistical baseline (ARIMA, historical average) graphed
-
-\subsection{XGBoost}
-
-The table displaying the classification metrics for the XGBoost model are displayed in Table \ref{fig:xgboost_results}. These results
-represent the model trained with the XGBoost pipeline, including the data transformation, feature selection, XGBoost model with 
-optimized parameters, and 
+\subsection{Hyperparameter Optimization}
+The parameters optimized using Grid Search optimization methods are described in Table \ref{fig:gridsearch}. A relatively
+low "n\_estimators", number of trees used in the model, is determined at 75, with the learning rate of 0.1 showing
+that the model prefers a smaller number of trees that learn quickly. These trees are relatively short with a max
+depth of 5 nodes, subsampling 0.8 of the data each time. Additionally, the final test
+accuracy with the best model according to the grid search was 0.7202, at about 72\%. 
 
 \begin{table}[]
 \begin{center}
 \begin{tabular}{lllll}
 \hline
-             & precision & recall & f1-score & support     \\ \hline
-0            & 0.88   & 0.31     & 0.46    & 1372 \\
-1            & 0.10   & 0.31     & 0.15    & 143  \\
-2            & 0.20   & 0.52     & 0.29    & 330  \\ \hline
-3            & 0.19   & 0.28     & 0.23    & 53   \\
-4            & 0.13   & 0.50     & 0.21    & 14   \\
-accuracy     &        &          & 0.35    & 1912 \\
-macro avg    & 0.30   & 0.39     & 0.27    & 1912 \\
-weighted avg & 0.68   & 0.35     & 0.40    & 1912
+Parameter & Options & Selected \\ \hline
+'XGB\_\_n\_estimators' & {[}25, 50, 75{]},       & 75  \\
+'XGB\_\_learning\_rate' & {[}0.01, 0.05, 0.1{]}, & 0.1 \\
+'XGB\_\_max\_depth'& {[}3, 5, 7, 8{]},          & 5   \\
+'XGB\_\_subsample'& {[}0.8, 1.0{]},             & 0.8 \\ 
+'XGB\_\_colsample\_bytree' & {[}0.8, 1.0{]},     & 0.8 
 \end{tabular}
-  \caption{Classification metrics for XGBoost model show that the XGBoost model has low accuracy across low-frequency severity categories.}
-  \label{fig:xgboost_results}
+  \caption{A table describing optimal parameters for XGBoost as determined by GridSearch.}
+  \label{fig:gridsearch}
 \end{center}
 \end{table}
 
+\subsection{XGBoost}
+The classification metrics for the XGBoost model are compared to a "dummy" variable which sets every prediction to 0 (Property 
+damage only), as shown in Figure \ref{fig:dummy_results}. A table mapping the crash severity categories 0-4 to their respective 
+names can be shown in Table \ref{fig:crashcategories}.
+The comparison to a dummy variable is useful to determine how the XGBoost model's predictions compare to a base average value.
+Precision rating of 0.72 displayed for the most frequent "0" category indicates that the model at an accuracy of 72\% as shown
+in section 4.1 before weighing each category evenly is no better than guessing the most common category for every data point
 
 \begin{table}[]
 \begin{center}
@@ -263,48 +291,107 @@ weighted avg & 0.68   & 0.35     & 0.40    & 1912
              & precision & recall & f1-score & support     \\ \hline
 0            & 0.72   & 1.00     & 0.84    & 1372 \\
 1            & 0.00   & 0.00     & 0.00    & 143  \\
-2            & 0.00   & 0.00     & 0.00    & 330  \\ \hline
+2            & 0.00   & 0.00     & 0.00    & 330  \\
 3            & 0.00   & 0.00     & 0.00    & 53   \\
 4            & 0.00   & 0.00     & 0.00    & 14   \\
 accuracy     & 0.72   & 1912     & 0.35    & 1912 \\
 macro avg    & 0.14   & 0.20     & 0.17    & 1912 \\
 weighted avg & 0.51   & 0.72     & 0.60    & 1912
 \end{tabular}
-  \caption{Classification metrics for "dummy" results show that the XGBoost model is proficient in guessing only the most common crash severity category "0" (Property damage only).}
+  \caption{Classification metrics for "dummy" results can be used to compare the baseline model against an average value.}
   \label{fig:dummy_results}
 \end{center}
 \end{table}
 
+The table displaying the classification metrics for the XGBoost model are displayed in Table \ref{fig:xgboost_results}. These results
+represent the model trained with the XGBoost pipeline, including the data transformation, feature selection, XGBoost model with 
+optimized parameters, and class weights. The accuracy rating displayed in Table \ref{fig:xgboost_results} differs from the 72\%
+described in section 5.1 to 35\% when class weights are applied to the XGBoost model, and thus
+take into account the uneven distribution of data. 
+
+The most common "0" classification has a high precision score and a relatively low recall score, indicating that the model
+is identifying other crash severity categories when it should be identifying "0". In contrast, categories 2 and 4 show
+relatively low precision and high recall at around 52\%. These measurements indicate that the model has overcorrected 
+from its 72\% accuracy when it guessed everything to be 0, and now triggers too often for categories 2 and 4. The
+low precision and recall scores for both 1 and 3 similarly indicate a systematic flaw in the model's decision making
+process.
+ 
+\begin{table}[]
+\begin{center}
+\begin{tabular}{lllll}
+\hline
+             & precision & recall & f1-score & support     \\ \hline
+0            & 0.88   & 0.31     & 0.46    & 1372 \\
+1            & 0.10   & 0.31     & 0.15    & 143  \\
+2            & 0.20   & 0.52     & 0.29    & 330  \\
+3            & 0.19   & 0.28     & 0.23    & 53   \\
+4            & 0.13   & 0.50     & 0.21    & 14   \\
+accuracy     &        &          & 0.35    & 1912 \\
+macro avg    & 0.30   & 0.39     & 0.27    & 1912 \\
+weighted avg & 0.68   & 0.35     & 0.40    & 1912
+\end{tabular}
+  \caption{The table displays precision, recall, and f1-score of the XGBoost model. The "support" column 
+  contains the total number of datapoints for that category. "macro avg" takes an average each
+  category equally regardless of its "support", while "weighted avg" calculates the average with respect to its "support".}
+  \label{fig:xgboost_results}
+\end{center}
+\end{table}
+
+
+
 
 \subsection{Explanatory features}
-Output for the most important features
+Figure \ref{fig:featureanalysis} displays a graph of the features that mattered the most to the XGBoost model when the model
+was deciding how to categorize new data points. 
+
 \begin{figure}[] 
 \begin{center}
-  \includegraphics[width=17cm]{crashseverityfactors.png}
-  \caption{.}
-  \label{fig:arcgis}
+  \includegraphics[width=17cm]{topcrashseverity.png}
+  \caption{As displayed by the figure, the DrinkingRelated = False condition is the most indicative of accident severity.}
+  \label{fig:featureanalysis}
  \end{center}
 \end{figure}
 
+Given the acute difference between the importance of the DrinkingRelated feature and the other features in crash severity
+prediction, it was pertinent to determine what outcome(s) the model determined based on the DrinkingRelated feature
+being marked false. Figure \ref{fig:nondrugcrash} visualizes the number of non-drinking-related-accidents that belong 
+to each severity category, showing that the vast majority of non-drinking related accidents fall into the "Property
+Damage Only" category. 
+
+
+\begin{figure}[] 
+\begin{center}
+  \includegraphics[width=15cm]{nondrugcrash.png}
+  \caption{The DrinkingRelated = False condition is heavily correlated with less severe outcomes.}
+  \label{fig:nondrugcrash}
+ \end{center}
+\end{figure}
+
+
 %SAnalysis and Discussion
 \section{Analysis and Discussion}
+The project's implmenetation of the XGBoost model resulted in a poor outcome
+
 
 \subsection{Classification metrics results}
+Classification metrics for XGBoost model show that the XGBoost model has low accuracy across low-frequency severity categories.
+
+This likely means that the model mostly just predicts the most frequent value "0" (Property damage only) 
+
 Because there is very high precision and low recall, that means that 
 
+show that the XGBoost model is proficient in guessing only the most common crash severity category "0" (Property damage only)
 
 - Compare results against the literature - most of them report the accuracy and mean squared error
 - What do I expect to learn from the results? 
   obvious goals: factors that most contribute to traffic accident severity, locations where traffic accidents take place
   meta goals: better ways to train ML models, ways to visualize ML traffic models in a way that is useful to policymakers.
 
-\subsection{}
+\subsection{Feature Importance Analysis}
+
 Analyze dfferent methods that increased the accuracy of the models.
 Analyze the meaning of the models, especially the feature explanation - which contributes most to car accidents
 Analyze location of traffic models
-
-\subsection{Limitations}
-- Limitations: Lack of domain relevant knowledge.
 
 
 %Conclusion section
@@ -319,7 +406,27 @@ than analyzing factors that contribute to severe accidents.
 Future work should find ways to improve the model or find different methods of analyzing accident severity. The XGBoost model
 currently has low accuracy, which calls the results into question 
 
-Add a geographical element to detect hotspots
+
+
+\subsection{Limitations}
+The project was limited by a lack of data, especially data of higher accident severity. Further, the scope of the
+data was limited by time constraints and by the inability to obtain traffic count data that could have been
+used for traffic modeling and limited the analysis to accident severity prediction. 
+
+The model had a low accuracy rating at 35\%. Future work to improve this model can make small adjustments to the
+model, such as cyclical encoding of numerical variables, different handling of null values, or different categorical groupings
+than what was initially described in the data. The work may also be inhanced by the addition of data, especially data
+in underrepresented crash groupings (like fatalities) so that each category is evenly represented. This can be done by
+increasing the geographical or temporal sample of the data. If XGBoost continues to produce low accuracy results, 
+a change to a different model such as Random Forest of K-Nearest Neighbors may prove more fruitful.
+
+Future research in traffic analysis can expand on this research through different types of analyses, such as geographical or
+other statistical analyses. Additional geographical/traffic count data can be used in conjunction with this model to predict
+accidents based on real-time traffic flow or detect traffic accident hotspots for further analysis. 
+SHAP analysis can be applied to create a more robust feature importance analysis which can accurately state which
+features most contribute to the model choosing one category or the other, rather than the built-in global feature importance
+ranking from XGBoost.
+
 
 \bibliographystyle{acm}
 \bibliography{bibliography.bib}
@@ -339,7 +446,7 @@ Addendum: Use of artificial intelligence
 
 ChatGPT was used to come up with an idea involving machine learning, ArcGIS, and traffic. The project suggested by ChatGPT
 was originally very different in scope and involved modeling traffic flows in Peru. 
-Gemini AI was used to troubleshoot error messages in the code to determine what the. Gemini AI was especially used to 
+Gemini AI was used to troubleshoot error messages in the code, specifically with regards to code to find the feature importance.
 
 %Include discussion about ensuring representative data. 
 %Confirming hypothesis about what the separation in feature importance means
